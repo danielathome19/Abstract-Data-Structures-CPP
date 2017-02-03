@@ -355,6 +355,8 @@ void circularlinkedlisttest() {
 int main() {
 
 	std::cout << "Hello world!" << std::endl;
+	// Call method to test data structure methods
+	// bintreetest();
 
 	getchar();
 	return 0;

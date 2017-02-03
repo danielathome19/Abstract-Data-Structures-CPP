@@ -1453,19 +1453,15 @@ template<class T> class CircularLinkedList {
 
 
 //NOT FINISHED
-//http://www.sourcetricks.com/2011/06/c-heaps.html
 template<class T> class Heap {};
 
 template<class K, class V> class Map {};
 
 template<class T> class SkipList {};
 
-//http://stackoverflow.com/questions/5493474/graph-implementation-c
-//http://www.sourcecodesworld.com/source/show.asp?ScriptID=875
 template<class T> class Graph {};
 
 template<class T> class AdjacencyList {};
 
 }
-
 #endif
