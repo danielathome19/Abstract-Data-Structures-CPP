@@ -4,7 +4,7 @@
 #include <vector>
 #include <time.h>
 
-using namespace danads;
+using namespace adscol;
 
 void linkedlisttest() {
 	LinkedList<char> *list = new LinkedList<char>();

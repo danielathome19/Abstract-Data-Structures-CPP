@@ -1,3 +1,23 @@
+/*
+
+Author: Daniel Szelogowski (C) 2016
+Created: 9/19/16
+Purpose: A collection of abstract data structures written in C++ using templates.
+Currently implemented:
+	-Linked List
+	-Doubly Linked list
+	-Stack
+	-Queue
+	-Set
+	-Binary (Search) Tree
+	-Priority Queue
+	-ArrayList
+	-Double Ended Queue (Deque)
+	-Circular Queue
+	-Circular Linked List
+
+*/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -5,7 +25,7 @@
 #ifndef ABSTRACTLISTS_H
 #define ABSTRACTLISTS_H
 
-namespace danads {
+namespace adscol {
 
 template<class T> class Node {
 	public:
@@ -1460,6 +1480,8 @@ template<class K, class V> class Map {};
 template<class T> class SkipList {};
 
 template<class T> class Graph {};
+
+template<class T> class Multiset {};
 
 template<class T> class AdjacencyList {};
 
