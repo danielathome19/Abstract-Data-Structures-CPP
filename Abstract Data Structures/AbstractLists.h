@@ -16,6 +16,14 @@ Currently implemented:
 	-Circular Queue
 	-Circular Linked List
 
+In progress:
+	-Heap
+	-Map
+	-Skip List
+	-Graph
+	-Multiset
+	-Adjacency List
+
 */
 
 #include <iostream>
@@ -1473,7 +1481,35 @@ template<class T> class CircularLinkedList {
 
 
 //NOT FINISHED
-template<class T> class Heap {};
+template<class T> class Heap {
+	private:
+		std::vector<T> data;
+		T maxValue;
+		T minValue;
+		bool minHeaped = false;
+		bool maxHeaped = false;
+		void maxHeapify(T);
+		void minHeapify(T);
+		void siftDown(T);
+		void siftDownMin(T, T);
+	public:
+		~Heap() {
+
+		}
+
+		Heap() {
+
+		}
+
+		inline int size() {
+
+		}
+
+		inline bool isEmpty() {
+			return (this->size == 0);
+		}
+
+};
 
 template<class K, class V> class Map {};
 
