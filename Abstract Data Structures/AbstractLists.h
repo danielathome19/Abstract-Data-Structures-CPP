@@ -1484,25 +1484,150 @@ template<class T> class CircularLinkedList {
 template<class T> class Heap {
 	private:
 		std::vector<T> data;
+
 		T maxValue;
 		T minValue;
 		bool minHeaped = false;
 		bool maxHeaped = false;
-		void maxHeapify(T);
-		void minHeapify(T);
-		void siftDown(T);
-		void siftDownMin(T, T);
+
+		inline void maxHeapify(T) {
+
+		}
+
+		inline void minHeapify(T) {
+
+		}
+
+		inline void siftDown(T) {
+
+		}
+
+		inline void siftDownMin(T, T) {
+
+		}
+
 	public:
 		~Heap() {
-
+			delete[] data;
+			delete maxValue;
+			delete minValue;
+			delete minHeaped;
+			delete maxHeaped;
 		}
 
 		Heap() {
+			data = new std::vector<T>();
+		}
 
+		inline T at(int i) {
+			return data.at(i);
+		}
+
+		inline bool insert(T t) {
+			if (data.size() == 0) {
+				minValue = t;
+				maxValue = t;
+			} else if (t > maxValue) {
+				maxValue = x;
+			} else if (t < minValue) {
+				minValue = t;
+			}
+
+			data.push_back(t);
+			return true;
+		}
+
+		inline bool sortedInsert(T t) {
+			if (data.size() == 0) {
+				minValue = x;
+				maxValue = x;
+			} else if (x > maxValue) {
+				maxValue = x;
+			} else if (x < minValue) {
+				minValue = x;
+			}
+
+			for (int i = 0; i, data.size(); i++) {
+				if (t < data.at(i)) {
+					data.insert(data.begin + i, t);
+					return true;
+				}
+			}
+			data.push_back(t);
+			return true;
+		}
+
+		inline bool erase(int i) {
+			if (i >= data.size()) {
+				return false;
+			} else {
+				data.erase(data.begin() + i);
+				return true;
+			}
+		}
+
+		inline int maxElement() {
+			return maxValue;
+		}
+
+		inline int minElement() {
+			return minValue;
+		}
+
+		inline int getParent(int);
+
+		inline int getLeftChild(int);
+
+		inline int getRightChild(int);
+
+		inline void buildMaxHeap();
+
+		inline void buildMinHeap();
+
+		inline void maxHeapSort() {
+			if (!maxHeaped) {
+				buildMaxHeap();
+			}
+			int i = data.size() - 1;
+			while (i > 0) {
+				swap(data[i], data[0]);
+				i--;
+				siftDown(0, i);
+			}
+		}
+
+		inline void minHeapSort() {
+			if (!minHeaped) {
+				buildMinHeap();
+			}
+
+			int i = data.size() - 1;
+			while (i > 0) {
+				swap(data[i], data[0]);
+				i--;
+				siftDownMin(0, i);
+			}
+		}
+
+		inline void print() {
+			if(data.size() == 0) {
+				std::cout << "Heap is empty" << std::endl;
+			} else {
+			   for (int i = 0; i < data.size(); i++) {
+				   std::cout << std::data[i] << " ";
+			   }
+			   std::cout << std::endl;
+		   }
+		}
+
+		inline void clear() {
+			maxHeaped = false;
+			minHeaped = false;
+			data.clear();
 		}
 
 		inline int size() {
-
+			return data.size();
 		}
 
 		inline bool isEmpty() {
