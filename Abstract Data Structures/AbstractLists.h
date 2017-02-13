@@ -22,6 +22,7 @@ In progress:
 	-Skip List
 	-Graph
 	-Multiset
+	-Bag
 	-Adjacency List
 
 */
@@ -85,8 +86,8 @@ template<class T> class LinkedList {
 		}
 
 		inline void add(T t) {
-			Node<T> *temp = new Node<T>(t);
 			if (myList == NULL) {
+				Node<T> *temp = new Node<T>(t);
 				myList = temp;
 				myLast = temp;
 			} else {
@@ -99,7 +100,7 @@ template<class T> class LinkedList {
 				Node<T> *temp = new Node<T>(t);
 				temp->myNext = myList;
 				myList = temp;
-			} else if ((index == (this->size() - 1)) || (index >= list.size())) {
+			} else if (index >= this->size() - 1) {
 				this->addLast(t);
 			} else {
 				int cnt = 0;
@@ -1490,12 +1491,38 @@ template<class T> class Heap {
 		bool minHeaped = false;
 		bool maxHeaped = false;
 
-		inline void maxHeapify(T) {
-
+		inline void maxHeapify(int i) {
+			int left = (2 * i) + 1;
+			int right = (2 * i) + 2;
+			int largest = i;
+			int size = data.size();
+			if (left < size && data[left] > data[largest]) {
+				largest = left;
+			}
+			if (right < size && data[right] > data[largest]) {
+				largest = right;
+			}
+			if (largest != i) {
+				swap(data[largest], data[i]);
+				maxHeapify(largest);
+			}
 		}
 
-		inline void minHeapify(T) {
-
+		inline void minHeapify(int i) {
+			int left = (2 * i) + 1;
+			int right = (2 * i) + 2;
+			int smallest = i;
+			int size = data.size();
+			if (left < size && data[left] < data[smallest]) {
+				smallest = left;
+			}
+			if (right < size && data[right] < data[smallest]) {
+				smallest = right;
+			}
+			if (smallest != i) {
+				swap(data[smallest], data[i]);
+				minHeapify(smallest);
+			}
 		}
 
 		inline void siftDown(T) {
@@ -1574,11 +1601,11 @@ template<class T> class Heap {
 			return minValue;
 		}
 
-		inline int getParent(int);
+		inline T getParent(int);
 
-		inline int getLeftChild(int);
+		inline T getLeftChild(int);
 
-		inline int getRightChild(int);
+		inline T getRightChild(int);
 
 		inline void buildMaxHeap();
 
@@ -1643,6 +1670,8 @@ template<class T> class SkipList {};
 template<class T> class Graph {};
 
 template<class T> class Multiset {};
+
+template<class T> class Bag {};
 
 template<class T> class AdjacencyList {};
 
