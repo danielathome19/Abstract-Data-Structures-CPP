@@ -1,31 +1,31 @@
 /*
-
-Author: Daniel Szelogowski (C) 2016
-Created: 9/19/16
-Purpose: A collection of abstract data structures written in C++ using templates.
-Currently implemented:
-	-Linked List
-	-Doubly Linked list
-	-Stack
-	-Queue
-	-Set
-	-Binary (Search) Tree
-	-Priority Queue
-	-ArrayList
-	-Double Ended Queue (Deque)
-	-Circular Queue
-	-Circular Linked List
-
-In progress:
-	-Heap
-	-Map
-	-Skip List
-	-Graph
-	-Multiset
-	-Bag
-	-Adjacency List
-
-*/
+ *
+ * Author: Daniel Szelogowski (C) 2016
+ * Created: 9/19/16
+ * Purpose: A collection of data structures written in C++ using templates.
+ * Currently implemented:
+ * 	-Linked List
+ * 	-Doubly Linked list
+ * 	-Stack
+ * 	-Queue
+ * 	-Set
+ * 	-Binary (Search) Tree
+ * 	-Priority Queue
+ * 	-ArrayList
+ * 	-Double Ended Queue (Deque)
+ * 	-Circular Queue
+ * 	-Circular Linked List
+ *
+ * In progress:
+ * 	-Heap
+ * 	-Map
+ * 	-Skip List
+ * 	-Graph
+ * 	-Multiset
+ * 	-Bag
+ * 	-Adjacency List
+ *
+ **************************************************************************/
 
 #include <iostream>
 #include <vector>
@@ -1484,7 +1484,7 @@ template<class T> class CircularLinkedList {
 //NOT FINISHED
 template<class T> class Heap {
 	private:
-		std::vector<T> data;
+		std::vector<T> *data;
 
 		T maxValue;
 		T minValue;
@@ -1495,7 +1495,7 @@ template<class T> class Heap {
 			int left = (2 * i) + 1;
 			int right = (2 * i) + 2;
 			int largest = i;
-			int size = data.size();
+			int size = data->size();
 			if (left < size && data[left] > data[largest]) {
 				largest = left;
 			}
@@ -1512,7 +1512,7 @@ template<class T> class Heap {
 			int left = (2 * i) + 1;
 			int right = (2 * i) + 2;
 			int smallest = i;
-			int size = data.size();
+			int size = data->size();
 			if (left < size && data[left] < data[smallest]) {
 				smallest = left;
 			}
@@ -1525,12 +1525,48 @@ template<class T> class Heap {
 			}
 		}
 
-		inline void siftDown(T) {
-
+		inline void siftDown(int start, int end) {
+			int root = start;
+			while (getLeftChild(root) != -1 && getLeftChild(root) <= end) {
+				int left = getLeftChild(root);
+				int iswap = root;
+				if (data[iswap] < data[left]) {
+					iswap = left;
+				}
+				int right = left + 1;
+				if (right != 0 && right <= end && data[iswap] < data[right]) {
+					iswap = right;
+				}
+				if (root == iswap) {
+					break;
+				}
+				else {
+					swap(data[iswap], data[root]);
+					root = iswap;
+				}
+			}
 		}
 
-		inline void siftDownMin(T, T) {
-
+		inline void siftDownMin(int start, int end) {
+			int root = start;
+			while (getLeftChild(root) <= end && getLeftChild(root) != -1) {
+				int left = getLeftChild(root);
+				int iswap = root;
+				if (data[iswap] > data[left]) {
+					iswap = left;
+				}
+				int right = left + 1;
+				if (right <= end && right != 0 && data[iswap] > data[right]) {
+					iswap = right;
+				}
+				if (iswap == root) {
+					break;
+				}
+				else {
+					swap(data[iswap], data[root]);
+					root = iswap;
+				}
+			}
 		}
 
 	public:
@@ -1547,25 +1583,25 @@ template<class T> class Heap {
 		}
 
 		inline T at(int i) {
-			return data.at(i);
+			return data->at(i);
 		}
 
 		inline bool insert(T t) {
-			if (data.size() == 0) {
+			if (data->size() == 0) {
 				minValue = t;
 				maxValue = t;
 			} else if (t > maxValue) {
-				maxValue = x;
+				maxValue = t;
 			} else if (t < minValue) {
 				minValue = t;
 			}
 
-			data.push_back(t);
+			data->push_back(t);
 			return true;
 		}
 
 		inline bool sortedInsert(T t) {
-			if (data.size() == 0) {
+			if (data->size() == 0) {
 				minValue = x;
 				maxValue = x;
 			} else if (x > maxValue) {
@@ -1574,21 +1610,21 @@ template<class T> class Heap {
 				minValue = x;
 			}
 
-			for (int i = 0; i, data.size(); i++) {
-				if (t < data.at(i)) {
-					data.insert(data.begin + i, t);
+			for (int i = 0; i, data->size(); i++) {
+				if (t < data->at(i)) {
+					data->insert(data->begin + i, t);
 					return true;
 				}
 			}
-			data.push_back(t);
+			data->push_back(t);
 			return true;
 		}
 
 		inline bool erase(int i) {
-			if (i >= data.size()) {
+			if (i >= data->size()) {
 				return false;
 			} else {
-				data.erase(data.begin() + i);
+				data->erase(data->begin() + i);
 				return true;
 			}
 		}
@@ -1601,23 +1637,55 @@ template<class T> class Heap {
 			return minValue;
 		}
 
-		inline T getParent(int);
+		inline int getParent(int i) {
+			int parentIndex;
+			if (i == 0) {
+				parentIndex = 0;
+			} else {
+				parentIndex = floor((i - 1) / 2);
+			}
+			return parentIndex;
+		}
 
-		inline T getLeftChild(int);
+		inline int getLeftChild(int i) {
+			int leftChildIndex = (2 * i) + 1;
+			if (leftChildIndex >= data->size()) {
+				leftChildIndex = -1;
+			}
+			return leftChildIndex;
+		}
 
-		inline T getRightChild(int);
+		inline int getRightChild(int i) {
+			int rightChildIndex = (2 * i) + 2;
+			if (rightChildIndex >= data->size()) {
+				rightChildIndex = -1;
+			}
+			return rightChildIndex;
+		}
 
-		inline void buildMaxHeap();
+		inline void buildMaxHeap() {
+			for (int i = floor(data->size() / 2); i >= 0; i--) {
+				maxHeapify(i);
+			}
+			minHeaped = false;
+			maxHeaped = true;
+		}
 
-		inline void buildMinHeap();
+		inline void buildMinHeap() {
+			for (int i = floor(data->size() / 2); i >= 0; i--) {
+				minHeapify(i);
+			}
+			minHeaped = true;
+			maxHeaped = false;
+		}
 
 		inline void maxHeapSort() {
 			if (!maxHeaped) {
 				buildMaxHeap();
 			}
-			int i = data.size() - 1;
+			int i = data->size() - 1;
 			while (i > 0) {
-				swap(data[i], data[0]);
+				std::swap(data[i], data[0]);
 				i--;
 				siftDown(0, i);
 			}
@@ -1628,20 +1696,21 @@ template<class T> class Heap {
 				buildMinHeap();
 			}
 
-			int i = data.size() - 1;
+			int i = data->size() - 1;
 			while (i > 0) {
-				swap(data[i], data[0]);
+				std::swap(data[i], data[0]);
 				i--;
 				siftDownMin(0, i);
 			}
 		}
 
 		inline void print() {
-			if(data.size() == 0) {
+			if(data->size() == 0) {
 				std::cout << "Heap is empty" << std::endl;
 			} else {
-			   for (int i = 0; i < data.size(); i++) {
-				   std::cout << std::data[i] << " ";
+			   for (int i = 0; i < data->size(); i++) {
+				   T obj = data->at(i);
+				   std::cout << obj << " ";
 			   }
 			   std::cout << std::endl;
 		   }
@@ -1650,11 +1719,11 @@ template<class T> class Heap {
 		inline void clear() {
 			maxHeaped = false;
 			minHeaped = false;
-			data.clear();
+			data->clear();
 		}
 
 		inline int size() {
-			return data.size();
+			return data->size();
 		}
 
 		inline bool isEmpty() {

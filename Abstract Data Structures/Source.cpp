@@ -352,11 +352,38 @@ void circularlinkedlisttest() {
 	std::cout << "Finished" << std::endl;
 }
 
+void heaptest() {
+	Heap<int> *heap = new Heap<int>();
+	heap->insert(9);
+	heap->insert(3);
+	heap->insert(89);
+	heap->insert(35);
+	heap->insert(42);
+	heap->insert(99);
+	heap->insert(17);
+	heap->insert(37);
+	heap->insert(-1);
+	heap->insert(0);
+	heap->insert(17);
+	heap->print();
+
+
+	std::cout << "Min Heap Sort (lesser values to the right)..." << std::endl;
+	heap->minHeapSort();
+	heap->print();
+
+	std::cout << "Max Heap Sort (greater values to the right)..." << std::endl;
+	heap->maxHeapSort();
+	heap->print();
+
+}
+
 int main() {
 
 	std::cout << "Hello world!" << std::endl;
 	// Call method to test data structure methods
 	// bintreetest();
+	heaptest();
 
 	getchar();
 	return 0;
