@@ -13,12 +13,12 @@ All classes are kept within the __AbstractLists.h__ file, to be included within 
 The __Source.cpp__ file contains working tests for most/all methods for each data structure.
 
 #Bugs/Features
-Bugs are tracked using Github Issue tracker system.
+Bugs are tracked using the Github Issue Tracker.
 
-Please use issue tracker for following purpose:
-  * to raise a bug request; do include specific details and label it appropriately.
-  * to suggest any improvements in existing features.
-  * to suggest new features or structures or applications.
+Please use the issue tracker for the following purpose:
+  * To raise a bug request; do include specific details and label it appropriately.
+  * To suggest any improvements in existing features.
+  * To suggest new features or structures or applications.
 
 #License
 The code is licensed under MIT License.
