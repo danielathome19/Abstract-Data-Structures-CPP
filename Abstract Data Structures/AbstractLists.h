@@ -1541,7 +1541,7 @@ template<class T> class Heap {
 					break;
 				}
 				else {
-					swap(data[iswap], data[root]);
+					std::swap(data[iswap], data[root]);
 					root = iswap;
 				}
 			}
@@ -1563,7 +1563,7 @@ template<class T> class Heap {
 					break;
 				}
 				else {
-					swap(data[iswap], data[root]);
+					std::swap(data[iswap], data[root]);
 					root = iswap;
 				}
 			}
