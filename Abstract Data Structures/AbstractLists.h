@@ -1991,7 +1991,54 @@ template<class T> class CircularLinkedList {
 		}
 };
 
+template<class T> class SkipNode {
+	public:
+		T myObj;
+		SkipNode *myNext;
+		Stack<SkipNode<T>> *myLevels;
+
+		~SkipNode() {
+			delete myObj;
+			delete myNext;
+			delete myTop;
+		}
+
+		SkipNode(T t) {
+			myObj = t;
+			myNext = NULL;
+			myTop = NULL;
+		}
+};
+
 //NOT FINISHED
+template<class T> class SkipList {
+	private:
+		SkipNode<T> *myList;
+		SkipNode<T> *myLast;
+
+	public:
+		~SkipList() {
+			delete myList;
+			delete myLast;
+		}
+
+		SkipList() {
+			myList = NULL;
+			myLast = NULL;
+		}
+
+		SkipList(T t) {
+			myList = new Node<T>(t);
+			myLast = myList;
+		}
+
+		void add(T t) {
+
+		}
+
+		void remove()
+};
+
 template<class T> class Heap {
 	private:
 		std::vector<T> *data;
@@ -2243,8 +2290,6 @@ template<class T> class Heap {
 };
 
 template<class K, class V> class Map {};
-
-template<class T> class SkipList {};
 
 template<class T> class Graph {};
 
