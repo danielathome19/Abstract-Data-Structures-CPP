@@ -4,26 +4,25 @@
  * Created: 9/19/16
  * Purpose: A collection of data structures written in C++ using templates.
  * Currently implemented:
- * 	-Linked List
- * 	-Doubly Linked list
- * 	-Stack
- * 	-Queue
- * 	-Set
- * 	-Binary (Search) Tree
- * 	-Priority Queue
- * 	-ArrayList
- * 	-Double Ended Queue (Deque)
- * 	-Circular Queue
- * 	-Circular Linked List
+ *	-Linked List
+ *	-Doubly Linked list
+ *	-Stack
+ *	-Queue
+ *	-Set
+ *	-Binary (Search) Tree
+ *	-Priority Queue
+ *	-ArrayList
+ *	-Double Ended Queue (Deque)
+ *	-Circular Queue
+ *	-Circular Linked List
  *
  * In progress:
- * 	-Heap
- * 	-Map
- * 	-Skip List
- * 	-Graph
- * 	-Multiset
- * 	-Bag
- * 	-Adjacency List
+ *	-Heap
+ *	-Map
+ *	-Skip List
+ *	-Graph
+ *	-Multiset
+ *	-Bag
  *
  **************************************************************************/
 
@@ -1175,7 +1174,7 @@ template<class T> class ArrayList {
 				return temp;
 			}
 			for (int i = fromIndex; i<toIndex; i++) {
-				temp->append(array[i]);
+				temp->add(array[i]);
 			}
 			return temp;
 		}
@@ -1741,8 +1740,6 @@ template<class T> class Graph {};
 template<class T> class Multiset {};
 
 template<class T> class Bag {};
-
-template<class T> class AdjacencyList {};
 
 }
 #endif
