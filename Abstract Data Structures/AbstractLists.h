@@ -1127,6 +1127,12 @@ template<class T> class ArrayList {
 			}
 		}
 
+		inline void print() {
+			for (int i = 0; i <= _size; i++) {
+				std::cout << this->get(i) << std::endl;
+			}
+		}
+
 		inline void clear() {
 			for (int i = _size - 1; i >= 0; i--) {
 				remove(i);
