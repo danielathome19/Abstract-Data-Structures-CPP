@@ -2036,7 +2036,9 @@ template<class T> class SkipList {
 
 		}
 
-		void remove()
+		void remove() {
+
+		}
 };
 
 template<class T> class Heap {
