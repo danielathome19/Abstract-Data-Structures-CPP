@@ -216,6 +216,26 @@ void settest2() {
 	std::cout << "Size: " << nums->size() << std::endl;
 }
 
+void multisettest() {
+	Multiset<int> *nums = new Multiset<int>();
+
+	srand(time(NULL));
+
+	for (int i = 0; i < 100; i++) {
+
+		int x = rand() % 10 + 1;
+
+		nums->add(x);
+	}
+
+	nums->print();
+
+	std::cout << "Size: " << nums->size() << std::endl;
+
+	Set<int> *list = nums->getSet();
+	list->print();
+}
+
 void bintreetest() {
 	BinaryTree<int> *nums = new BinaryTree<int>();
 	//BinaryTree<char> *nums = new BinaryTree<char>();

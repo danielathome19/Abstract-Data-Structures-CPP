@@ -3,6 +3,9 @@
  * Author: Daniel Szelogowski (C) 2016
  * Created: 9/19/16
  * Purpose: A collection of data structures written in C++ using templates.
+ *
+ * To do: Implement contains methods for all classes
+ *
  * Currently implemented:
  *	-Linked List
  *	-Doubly Linked list
@@ -11,6 +14,7 @@
  *	-Queue (Linked List)
  *	-Queue
  *	-Set
+ *	-Multiset (Bag)
  *	-Binary (Search) Tree
  *	-Priority Queue
  *	-ArrayList
@@ -23,8 +27,6 @@
  *	-Map
  *	-Skip List
  *	-Graph
- *	-Multiset
- *	-Bag
  *
  **************************************************************************/
 
@@ -194,6 +196,15 @@ template<class T> class LinkedList {
 			}
 		}
 
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->get(i));
+			}
+			return items;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -288,6 +299,15 @@ template<class T> class DoublyLinkedList {
 			if (cnt == index) return temp->myObj;
 		}
 
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->get(i));
+			}
+			return items;
+		}
+
 		void clear() { myList = NULL; }
 
 		int size() {
@@ -371,6 +391,15 @@ template<class T> class LinkedListStack {
 			}
 		}
 
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->pop());
+			}
+			return items;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -425,6 +454,15 @@ template<class T> class Stack {
 			for (int i = myList->size() - 1; i >= 0; i--) {
 				std::cout << myList->at(i) << std::endl;
 			}
+		}
+
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->pop());
+			}
+			return items;
 		}
 
 		void clear() { myList->clear(); }
@@ -652,11 +690,131 @@ template<class T> class Set {
 			}
 		}
 
+		void remove(int index) {
+			if (index == 0) {
+				myLast = myList;
+				Node<T> *temp = myLast->myNext;
+				myList = temp;
+				myLast = myList;
+			} else if (index == (this->size() - 1)) {
+				myLast = myList;
+				while (myLast->myNext->myNext != NULL) {
+					myLast = myLast->myNext;
+				}
+				myLast->myNext = NULL;
+			} else {
+				int cnt = 0;
+				myLast = myList;
+				Node<T> *tempx;
+				while ((myLast->myNext != NULL) && (cnt <= index)) {
+					if (cnt == (index - 1)) {
+						tempx = myLast;
+						tempx->myNext = myLast->myNext->myNext;
+						myLast = tempx;
+					}
+					cnt++;
+					myLast = myLast->myNext;
+				}
+			}
+		}
+
+		T get(int index) {
+			int cnt = 0;
+			myLast = myList;
+			T obj = NULL;
+			while ((myLast->myNext != NULL) && (cnt <= index)) {
+				if (cnt == index) obj = myLast->myObj;
+				myLast = myLast->myNext;
+				cnt++;
+			}
+			if (cnt == index) obj = myLast->myObj;
+			myLast = myList;
+			return obj;
+		}
+
 		void print() {
 			myLast = myList;
 			while (myLast != NULL) {
 				std::cout << myLast->myObj << std::endl;
 				myLast = myLast->myNext;
+			}
+		}
+
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->get(i));
+			}
+			return items;
+		}
+
+		void clear() { myLast, myList = NULL; }
+
+		int size() {
+			int cnt = 0;
+			myLast = myList;
+			while (myLast != NULL) {
+				cnt++;
+				myLast = myLast->myNext;
+			}
+			return cnt;
+		}
+
+		bool isEmpty() {
+			return (this->size() == 0);
+		}
+};
+
+template<class T> class Multiset {
+	private:
+		Node<T> *myList;
+		Node<T> *myLast;
+
+		void addSorted(T t) {
+			myLast = myList;
+			Node<T> *temp = new Node<T>(t);
+			if (temp->myObj < myLast->myObj) {
+				temp->myNext = myLast;
+				myList = temp;
+				return;
+			}
+			while (myLast->myNext != NULL) {
+				if (temp->myObj < myLast->myNext->myObj) {
+					temp->myNext = myLast->myNext;
+					myLast->myNext = temp;
+					return;
+				}
+				myLast = myLast->myNext;
+			}
+
+			myLast->myNext = temp;
+		}
+
+	public:
+		~Multiset() {
+			delete myList;
+			delete myLast;
+		}
+
+		Multiset() {
+			myList = NULL;
+			myLast = NULL;
+		}
+
+		Multiset(T t) {
+			myList = new Node<T>(t);
+			myLast = myList;
+		}
+
+		void add(T t) {
+			Node<T> *temp = new Node<T>(t);
+			if (myList == NULL) {
+				myList = temp;
+				myLast = temp;
+			}
+			else {
+				this->addSorted(t);
 			}
 		}
 
@@ -700,6 +858,32 @@ template<class T> class Set {
 			if (cnt == index) obj = myLast->myObj;
 			myLast = myList;
 			return obj;
+		}
+
+		void print() {
+			myLast = myList;
+			while (myLast != NULL) {
+				std::cout << myLast->myObj << std::endl;
+				myLast = myLast->myNext;
+			}
+		}
+
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->get(i));
+			}
+			return items;
+		}
+
+		adscol::Set<T>* getSet() {
+			adscol::Set<T> *items = new adscol::Set<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->add(this->get(i));
+			}
+			return items;
 		}
 
 		void clear() { myLast, myList = NULL; }
@@ -1247,6 +1431,15 @@ template<class T> class ArrayList {
 			}
 		}
 
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < this->size(); i++) {
+				items->push_back(this->get(i));
+			}
+			return items;
+		}
+
 		void clear() {
 			for (int i = _size - 1; i >= 0; i--) {
 				remove(i);
@@ -1363,6 +1556,10 @@ template<class T> class Deque {
 			}
 		}
 
+		std::vector<T>* getList() {
+			return myList;
+		}
+
 		void clear() { myList->clear(); }
 
 		int size() {
@@ -1457,6 +1654,16 @@ template<class T> class CircularQueue {
 			while (!(temp->isEmpty())) {
 				std::cout << temp->dequeue() << std::endl;
 			}
+		}
+
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+			CircularQueue<T> *temp = new CircularQueue<T>(this);
+
+			while (!(temp->isEmpty())) {
+				items->push_back(temp->dequeue());
+			}
+			return items;
 		}
 
 		void clear() {
@@ -1578,6 +1785,21 @@ template<class T> class CircularLinkedList {
 			}
 		}
 
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			Node<T> *myLast = myList;
+
+			if (myList != NULL) {
+				while (myLast->myNext != myList) {
+					items->push_back(myLast->myObj);
+					myLast = myLast->myNext;
+				}
+				items->push_back(myLast->myObj);
+			}
+			return items;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -1598,7 +1820,6 @@ template<class T> class CircularLinkedList {
 			return (this->size() == 0);
 		}
 };
-
 
 //NOT FINISHED
 template<class T> class Heap {
@@ -1856,10 +2077,6 @@ template<class K, class V> class Map {};
 template<class T> class SkipList {};
 
 template<class T> class Graph {};
-
-template<class T> class Multiset {};
-
-template<class T> class Bag {};
 
 }
 #endif
