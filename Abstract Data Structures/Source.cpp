@@ -289,6 +289,42 @@ void bintreetest2() {
 
 }
 
+void bintreetest3() {
+	BinaryTree<int> *tree = new BinaryTree<int>();
+
+	srand(time(NULL));
+
+	for (int i = 0; i < 100; i++) {
+
+		int x = rand() % 10 + 1;
+
+		tree->add(x);
+	}
+
+	std::vector<int> *list = tree->getListInOrder();
+
+	for (int i = 0; i < list->size(); i++) {
+		std::cout << list->at(i) << std::endl;
+
+	}
+
+	std::cout << std::endl;
+	list = tree->getListPostOrder();
+
+	for (int i = 0; i < list->size(); i++) {
+		std::cout << list->at(i) << std::endl;
+
+	}
+
+	std::cout << std::endl;
+	list = tree->getListPreOrder();
+
+	for (int i = 0; i < list->size(); i++) {
+		std::cout << list->at(i) << std::endl;
+
+	}
+}
+
 void arraylisttest() {
 	ArrayList<int> *list = new ArrayList<int>();
 

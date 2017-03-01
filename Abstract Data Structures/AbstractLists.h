@@ -925,6 +925,28 @@ template<class T> class TreeNode {
 template<class T> class BinaryTree {
 	private:
 		TreeNode<T> *root;
+		std::vector<T> *items;
+
+		void getListInOrderT(TreeNode<T> *r) {
+			if (r == NULL) { return; }
+			getListInOrderT(r->myLeft);
+			items->push_back(r->myObj);
+			getListInOrderT(r->myRight);
+		}
+
+		void getListPreOrderT(TreeNode<T> *r) {
+			if (r == NULL) { return; }
+			items->push_back(r->myObj);
+			getListPreOrderT(r->myLeft);
+			getListPreOrderT(r->myRight);
+		}
+
+		void getListPostOrderT(TreeNode<T> *r) {
+			if (r == NULL) { return; }
+			getListPostOrderT(r->myLeft);
+			getListPostOrderT(r->myRight);
+			items->push_back(r->myObj);
+		}
 
 		static void printInOrderT(TreeNode<T> *r) {
 			if (r == NULL) { return; }
@@ -1009,6 +1031,7 @@ template<class T> class BinaryTree {
 
 		BinaryTree() {
 			root = NULL;
+			items = new std::vector<T>();
 		}
 
 		void add(T t) {
@@ -1102,9 +1125,27 @@ template<class T> class BinaryTree {
 
 		void invert() { invertTree(root); }
 
-		void printPreOrder() { printPreOrderT(root); }
-		void printInOrder() { printInOrderT(root); }
+		void printPreOrder()  { printPreOrderT(root); }
+		void printInOrder()	  { printInOrderT(root);  }
 		void printPostOrder() { printPreOrderT(root); }
+
+		std::vector<T>* getListPreOrder() {
+			items->clear();
+			getListPreOrderT(root);
+			return items;
+		}
+
+		std::vector<T>* getListInOrder() {
+			items->clear();
+			getListInOrderT(root);
+			return items;
+		}
+
+		std::vector<T>* getListPostOrder() {
+			items->clear();
+			getListPreOrderT(root);
+			return items;
+		}
 
 		void clear() { root = NULL; }
 
