@@ -68,22 +68,6 @@ void linkedlisttest() {
 	}
 }
 
-void stacktest() {
-	Stack<int> *nums = new Stack<int>();
-
-	for (int i = 1; i <= 10; i++) {
-		nums->push(i);
-	}
-
-	std::cout << nums->peek() << std::endl;
-
-	std::cout << nums->pop() << std::endl;
-	std::cout << nums->pop() << std::endl;
-	std::cout << nums->pop() << std::endl;
-	std::cout << nums->size() << std::endl;
-	std::cout << nums->isEmpty() << std::endl;
-}
-
 void doublylinkedlisttest() {
 
 	DoublyLinkedList<int> *nums = new DoublyLinkedList<int>();
@@ -113,6 +97,68 @@ void doublylinkedlisttest() {
 	std::cout << "Size: " << std::endl;
 	std::cout << nums->size() << std::endl;
 
+}
+
+void linkedliststacktest() {
+	LinkedListStack<int> *nums = new LinkedListStack<int>();
+
+	for (int i = 1; i <= 10; i++) {
+		nums->push(i);
+	}
+
+	std::cout << nums->peek() << std::endl;
+
+	std::cout << nums->pop() << std::endl;
+	std::cout << nums->pop() << std::endl;
+	std::cout << nums->pop() << std::endl;
+	std::cout << nums->size() << std::endl;
+	std::cout << nums->isEmpty() << std::endl;
+
+	std::cout << std::endl;
+	nums->print();
+}
+
+void stacktest() {
+	Stack<int> *nums = new Stack<int>();
+
+	for (int i = 1; i <= 10; i++) {
+		nums->push(i);
+	}
+
+	std::cout << nums->peek() << std::endl;
+
+	std::cout << nums->pop() << std::endl;
+	std::cout << nums->pop() << std::endl;
+	std::cout << nums->pop() << std::endl;
+	std::cout << nums->size() << std::endl;
+	std::cout << nums->isEmpty() << std::endl;
+
+	std::cout << std::endl;
+	nums->print();
+}
+
+void linkedlistqueuetest() {
+	LinkedListQueue<int> *nums = new LinkedListQueue<int>();
+
+	for (int i = 1; i <= 10; i++) {
+		nums->enqueue(i);
+	}
+
+	std::cout << nums->peek() << std::endl;
+
+	std::cout << nums->dequeue() << std::endl;
+	std::cout << nums->dequeue() << std::endl;
+	std::cout << nums->dequeue() << std::endl;
+	std::cout << nums->size() << std::endl;
+	std::cout << "Is empty: " << nums->isEmpty() << std::endl << std::endl;
+	nums->print();
+	nums->clear();
+	std::cout << std::endl << std::endl;
+
+	for (int i = 1; i <= 10; i++) {
+		nums->enqueue(i);
+	}
+	nums->print();
 }
 
 void queuetest() {
@@ -379,10 +425,10 @@ void heaptest() {
 }
 
 int main() {
-
-	std::cout << "Hello world!" << std::endl;
 	// Call method to test data structure methods
 	// bintreetest();
+	std::cout << "Hello world!" << std::endl;
+
 	heaptest();
 
 	getchar();

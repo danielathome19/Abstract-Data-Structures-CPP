@@ -6,7 +6,9 @@
  * Currently implemented:
  *	-Linked List
  *	-Doubly Linked list
+ *	-Stack (Linked List)
  *	-Stack
+ *	-Queue (Linked List)
  *	-Queue
  *	-Set
  *	-Binary (Search) Tree
@@ -311,7 +313,7 @@ template<class T> class DoublyLinkedList {
 		}
 };
 
-template<class T> class Stack {
+template<class T> class LinkedListStack {
 	private:
 		Node<T> *myList;
 		Node<T> *myLast;
@@ -322,17 +324,17 @@ template<class T> class Stack {
 			myList = temp;
 		}
 	public:
-		~Stack() {
+		~LinkedListStack() {
 			delete myList;
 			delete myLast;
 		}
 
-		Stack() {
+		LinkedListStack() {
 			myList = NULL;
 			myLast = NULL;
 		}
 
-		Stack(T t) {
+		LinkedListStack(T t) {
 			myList = new Node<T>(t);
 			myLast = myList;
 		}
@@ -386,28 +388,78 @@ template<class T> class Stack {
 		}
 };
 
-template<class T> class Queue {
+template<class T> class Stack {
+	private:
+		std::vector<T> *myList;
+
+	public:
+		~Stack() {
+			delete[] myList;
+		}
+
+		Stack() {
+			myList = new std::vector<T>();
+		}
+
+		Stack(T t) {
+			myList = new std::vector<T>();
+			myList->push_back(t);
+		}
+
+		inline void push(T t) {
+			myList->push_back(t);
+		}
+
+		inline T pop() {
+			if (myList->size() == 0) { return NULL; }
+			T temp = myList->at(myList->size() - 1);
+			myList->erase(myList->begin() + myList->size() - 1);
+			return temp;
+		}
+
+		inline T peek() {
+			return myList->at(myList->size() - 1);
+		}
+
+		inline void print() {
+			for (int i = myList->size() - 1; i >= 0; i--) {
+				std::cout << myList->at(i) << std::endl;
+			}
+		}
+
+		inline void clear() { myList->clear(); }
+
+		inline int size() {
+			return myList->size();
+		}
+
+		inline bool isEmpty() {
+			return (myList->size() == 0);
+		}
+};
+
+template<class T> class LinkedListQueue {
 	private:
 		Node<T> *myList;
 		Node<T> *myLast;
 
 	public:
-		~Queue() {
+		~LinkedListQueue() {
 			delete myList;
 			delete myLast;
 		}
 
-		Queue() {
+		LinkedListQueue() {
 			myList = NULL;
 			myLast = NULL;
 		}
 
-		Queue(T t) {
+		LinkedListQueue(T t) {
 			myList = new Node<T>(t);
 			myLast = myList;
 		}
 
-		Queue(Queue<T> *copy) {
+		LinkedListQueue(LinkedListQueue<T> *copy) {
 			this->myLast = copy->myLast;
 			this->myList = copy->myList;
 		}
@@ -441,7 +493,7 @@ template<class T> class Queue {
 
 		inline void print() {
 			myLast = myList;
-			Queue<T> *listx = new Queue<T>(this);
+			LinkedListQueue<T> *listx = new LinkedListQueue<T>(this);
 			while (!listx->isEmpty()) {
 				std::cout << listx->dequeue() << std::endl;
 			}
@@ -449,7 +501,7 @@ template<class T> class Queue {
 
 		inline std::vector<T>* getList() {
 			std::vector<T> *list = new std::vector<T>();
-			Queue<T> *listx = new Queue<T>(this);
+			LinkedListQueue<T> *listx = new LinkedListQueue<T>(this);
 			while (!listx->isEmpty()) {
 				list->push_back(listx->dequeue());
 			}
@@ -470,6 +522,68 @@ template<class T> class Queue {
 
 		inline bool isEmpty() {
 			return (this->size() == 0);
+		}
+};
+
+template<class T> class Queue {
+	private:
+		std::vector<T> *myList;
+
+	public:
+		~Queue() {
+			delete[] myList;
+		}
+
+		Queue() {
+			myList = new std::vector<T>();
+		}
+
+		Queue(T t) {
+			myList = new std::vector<T>();
+			myList->push_back(t);
+		}
+
+		Queue(Queue<T> *copy) {
+			myList = new std::vector<T>();
+			for (int i = 0; i < copy.size(); i++) {
+				this->enqueue(copy->myList->at(i));
+			}
+		}
+
+		inline void enqueue(T t) {
+			myList->push_back(t);
+		}
+
+		inline T dequeue() {
+			if (myList->size() == 0) { return NULL; }
+			T temp = myList->at(0);
+			myList->erase(myList->begin() + 0);
+			return temp;
+		}
+
+		inline T peek() {
+			if (myList->size() == 0) { return NULL; }
+			return myList->at(0);
+		}
+
+		inline void print() {
+			for (int i = 0; i < myList->size(); i++) {
+				std::cout << myList->at(i) << std::endl;
+			}
+		}
+
+		inline std::vector<T>* getList() {
+			return myList;
+		}
+
+		inline void clear() { myList->clear(); }
+
+		inline int size() {
+			return myList->size();
+		}
+
+		inline bool isEmpty() {
+			return (myList->size() == 0);
 		}
 };
 
