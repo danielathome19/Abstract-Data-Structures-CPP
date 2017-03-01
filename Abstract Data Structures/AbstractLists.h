@@ -61,7 +61,7 @@ template<class T> class LinkedList {
 		Node<T> *myList;
 		Node<T> *myLast;
 
-		inline void addLast(T t) {
+		void addLast(T t) {
 			myLast = myList;
 			while (myLast->myNext != NULL) {
 				myLast = myLast->myNext;
@@ -86,7 +86,7 @@ template<class T> class LinkedList {
 			myLast = myList;
 		}
 
-		inline void add(T t) {
+		void add(T t) {
 			if (myList == NULL) {
 				Node<T> *temp = new Node<T>(t);
 				myList = temp;
@@ -96,7 +96,7 @@ template<class T> class LinkedList {
 			}
 		}
 
-		inline void add(int index, T t) {
+		void add(int index, T t) {
 			if (index == 0) {
 				Node<T> *temp = new Node<T>(t);
 				temp->myNext = myList;
@@ -118,7 +118,7 @@ template<class T> class LinkedList {
 			}
 		}
 
-		inline void remove(int index) {
+		void remove(int index) {
 			if (index == 0) {
 				myLast = myList;
 				Node<T> *temp = myLast->myNext;
@@ -146,7 +146,7 @@ template<class T> class LinkedList {
 			}
 		}
 
-		inline void set(int index, T t) {
+		void set(int index, T t) {
 			Node<T> *temp = new Node<T>(t);
 			if (index == 0) {
 				temp->myNext = myList->myNext;
@@ -172,7 +172,7 @@ template<class T> class LinkedList {
 			}
 		}
 
-		inline T get(int index) {
+		T get(int index) {
 			int cnt = 0;
 			myLast = myList;
 			T obj = NULL;
@@ -186,7 +186,7 @@ template<class T> class LinkedList {
 			return obj;
 		}
 
-		inline void print() {
+		void print() {
 			myLast = myList;
 			while (myLast != NULL) {
 				std::cout << myLast->myObj << std::endl;
@@ -194,9 +194,9 @@ template<class T> class LinkedList {
 			}
 		}
 
-		inline void clear() { myLast, myList = NULL; }
+		void clear() { myLast, myList = NULL; }
 
-		inline int size() {
+		int size() {
 			int cnt = 0;
 			myLast = myList;
 			while (myLast != NULL) {
@@ -206,7 +206,7 @@ template<class T> class LinkedList {
 			return cnt;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -229,7 +229,7 @@ template<class T> class DoublyLinkedList {
 			myLast = myList;
 		}
 
-		inline void add(T t) {
+		void add(T t) {
 			Node<T> *temp = new Node<T>(t);
 			if (myList == NULL) {
 				myList = temp;
@@ -243,13 +243,13 @@ template<class T> class DoublyLinkedList {
 			}
 		}
 
-		inline void removeLast() {
+		void removeLast() {
 			myList->myPrev = myList->myPrev->myPrev;
 			myList->myPrev->myNext = myList;
 			return;
 		}
 
-		inline void removeFirst() {
+		void removeFirst() {
 			Node<T> *temp = myList->myNext;
 			temp->myPrev = myList->myPrev;
 			temp->myNext = myList->myNext->myNext;
@@ -257,7 +257,7 @@ template<class T> class DoublyLinkedList {
 			myList = temp;
 		}
 
-		inline void print() {
+		void print() {
 			Node<T> *temp = myList;
 			std::cout << myList->myObj << std::endl;
 			temp = temp->myNext;
@@ -269,7 +269,7 @@ template<class T> class DoublyLinkedList {
 
 		}
 
-		inline T get(int index) {
+		T get(int index) {
 			int cnt = 0;
 			Node<T> *temp = myList;
 			if (cnt == index) {
@@ -288,9 +288,9 @@ template<class T> class DoublyLinkedList {
 			if (cnt == index) return temp->myObj;
 		}
 
-		inline void clear() { myList = NULL; }
+		void clear() { myList = NULL; }
 
-		inline int size() {
+		int size() {
 			if (myList == NULL) return 0;
 
 			int cnt = 0;
@@ -308,7 +308,7 @@ template<class T> class DoublyLinkedList {
 			return cnt;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -318,7 +318,7 @@ template<class T> class LinkedListStack {
 		Node<T> *myList;
 		Node<T> *myLast;
 
-		inline void addFirst(T t) {
+		void addFirst(T t) {
 			Node<T> *temp = new Node<T>(t);
 			temp->myNext = myList;
 			myList = temp;
@@ -339,7 +339,7 @@ template<class T> class LinkedListStack {
 			myLast = myList;
 		}
 
-		inline void push(T t) {
+		void push(T t) {
 			Node<T> *temp = new Node<T>(t);
 			if (myList == NULL) {
 				myList = temp;
@@ -350,7 +350,7 @@ template<class T> class LinkedListStack {
 			}
 		}
 
-		inline T pop() {
+		T pop() {
 			T obj = myList->myObj;
 			myLast = myList;
 			Node<T> *temp = myLast->myNext;
@@ -359,11 +359,11 @@ template<class T> class LinkedListStack {
 			return obj;
 		}
 
-		inline T peek() {
+		T peek() {
 			return myList->myObj;
 		}
 
-		inline void print() {
+		void print() {
 			myLast = myList;
 			while (myLast != NULL) {
 				std::cout << myLast->myObj << std::endl;
@@ -371,9 +371,9 @@ template<class T> class LinkedListStack {
 			}
 		}
 
-		inline void clear() { myLast, myList = NULL; }
+		void clear() { myLast, myList = NULL; }
 
-		inline int size() {
+		int size() {
 			int cnt = 0;
 			myLast = myList;
 			while (myLast != NULL) {
@@ -383,7 +383,7 @@ template<class T> class LinkedListStack {
 			return cnt;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -406,34 +406,34 @@ template<class T> class Stack {
 			myList->push_back(t);
 		}
 
-		inline void push(T t) {
+		void push(T t) {
 			myList->push_back(t);
 		}
 
-		inline T pop() {
+		T pop() {
 			if (myList->size() == 0) { return NULL; }
 			T temp = myList->at(myList->size() - 1);
 			myList->erase(myList->begin() + myList->size() - 1);
 			return temp;
 		}
 
-		inline T peek() {
+		T peek() {
 			return myList->at(myList->size() - 1);
 		}
 
-		inline void print() {
+		void print() {
 			for (int i = myList->size() - 1; i >= 0; i--) {
 				std::cout << myList->at(i) << std::endl;
 			}
 		}
 
-		inline void clear() { myList->clear(); }
+		void clear() { myList->clear(); }
 
-		inline int size() {
+		int size() {
 			return myList->size();
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (myList->size() == 0);
 		}
 };
@@ -464,7 +464,7 @@ template<class T> class LinkedListQueue {
 			this->myList = copy->myList;
 		}
 
-		inline void enqueue(T t) {
+		void enqueue(T t) {
 			Node<T> *temp = new Node<T>(t);
 			if (myList == NULL) {
 				myList = temp;
@@ -478,7 +478,7 @@ template<class T> class LinkedListQueue {
 			}
 		}
 
-		inline T dequeue() {
+		T dequeue() {
 			T obj = myList->myObj;
 			myLast = myList;
 			Node<T> *temp = myLast->myNext;
@@ -487,11 +487,11 @@ template<class T> class LinkedListQueue {
 			return obj;
 		}
 
-		inline T peek() {
+		T peek() {
 			return myList->myObj;
 		}
 
-		inline void print() {
+		void print() {
 			myLast = myList;
 			LinkedListQueue<T> *listx = new LinkedListQueue<T>(this);
 			while (!listx->isEmpty()) {
@@ -499,7 +499,7 @@ template<class T> class LinkedListQueue {
 			}
 		}
 
-		inline std::vector<T>* getList() {
+		std::vector<T>* getList() {
 			std::vector<T> *list = new std::vector<T>();
 			LinkedListQueue<T> *listx = new LinkedListQueue<T>(this);
 			while (!listx->isEmpty()) {
@@ -508,9 +508,9 @@ template<class T> class LinkedListQueue {
 			return list;
 		}
 
-		inline void clear() { myLast, myList = NULL; }
+		void clear() { myLast, myList = NULL; }
 
-		inline int size() {
+		int size() {
 			int cnt = 0;
 			myLast = myList;
 			while (myLast != NULL) {
@@ -520,7 +520,7 @@ template<class T> class LinkedListQueue {
 			return cnt;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -550,39 +550,39 @@ template<class T> class Queue {
 			}
 		}
 
-		inline void enqueue(T t) {
+		void enqueue(T t) {
 			myList->push_back(t);
 		}
 
-		inline T dequeue() {
+		T dequeue() {
 			if (myList->size() == 0) { return NULL; }
 			T temp = myList->at(0);
 			myList->erase(myList->begin() + 0);
 			return temp;
 		}
 
-		inline T peek() {
+		T peek() {
 			if (myList->size() == 0) { return NULL; }
 			return myList->at(0);
 		}
 
-		inline void print() {
+		void print() {
 			for (int i = 0; i < myList->size(); i++) {
 				std::cout << myList->at(i) << std::endl;
 			}
 		}
 
-		inline std::vector<T>* getList() {
+		std::vector<T>* getList() {
 			return myList;
 		}
 
-		inline void clear() { myList->clear(); }
+		void clear() { myList->clear(); }
 
-		inline int size() {
+		int size() {
 			return myList->size();
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (myList->size() == 0);
 		}
 };
@@ -592,7 +592,7 @@ template<class T> class Set {
 		Node<T> *myList;
 		Node<T> *myLast;
 
-		inline void addSorted(T t) {
+		void addSorted(T t) {
 			myLast = myList;
 			Node<T> *temp = new Node<T>(t);
 			if (temp->myObj < myLast->myObj) {
@@ -612,7 +612,7 @@ template<class T> class Set {
 			myLast->myNext = temp;
 		}
 
-		inline void checkDuplicates(T t) {
+		void checkDuplicates(T t) {
 			T item = t;
 			bool dupeFound = false;
 
@@ -641,7 +641,7 @@ template<class T> class Set {
 			myLast = myList;
 		}
 
-		inline void add(T t) {
+		void add(T t) {
 			Node<T> *temp = new Node<T>(t);
 			if (myList == NULL) {
 				myList = temp;
@@ -652,7 +652,7 @@ template<class T> class Set {
 			}
 		}
 
-		inline void print() {
+		void print() {
 			myLast = myList;
 			while (myLast != NULL) {
 				std::cout << myLast->myObj << std::endl;
@@ -660,7 +660,7 @@ template<class T> class Set {
 			}
 		}
 
-		inline void remove(int index) {
+		void remove(int index) {
 			if (index == 0) {
 				myLast = myList;
 				Node<T> *temp = myLast->myNext;
@@ -688,7 +688,7 @@ template<class T> class Set {
 			}
 		}
 
-		inline T get(int index) {
+		T get(int index) {
 			int cnt = 0;
 			myLast = myList;
 			T obj = NULL;
@@ -702,9 +702,9 @@ template<class T> class Set {
 			return obj;
 		}
 
-		inline void clear() { myLast, myList = NULL; }
+		void clear() { myLast, myList = NULL; }
 
-		inline int size() {
+		int size() {
 			int cnt = 0;
 			myLast = myList;
 			while (myLast != NULL) {
@@ -714,7 +714,7 @@ template<class T> class Set {
 			return cnt;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -742,28 +742,28 @@ template<class T> class BinaryTree {
 	private:
 		TreeNode<T> *root;
 
-		inline static void printInOrderT(TreeNode<T> *r) {
+		static void printInOrderT(TreeNode<T> *r) {
 			if (r == NULL) { return; }
 			printInOrderT(r->myLeft);
 			std::cout << r->myObj << std::endl;
 			printInOrderT(r->myRight);
 		}
 
-		inline static void printPreOrderT(TreeNode<T> *r) {
+		static void printPreOrderT(TreeNode<T> *r) {
 			if (r == NULL) { return; }
 			std::cout << r->myObj << std::endl;
 			printPreOrderT(r->myLeft);
 			printPreOrderT(r->myRight);
 		}
 
-		inline static void printPostOrderT(TreeNode<T> *r) {
+		static void printPostOrderT(TreeNode<T> *r) {
 			if (r == NULL) { return; }
 			printPostOrderT(r->myLeft);
 			printPostOrderT(r->myRight);
 			std::cout << r->myObj << std::endl;
 		}
 
-		inline static void invertTree(TreeNode<T> *r) {
+		static void invertTree(TreeNode<T> *r) {
 			if (r == NULL) { return; }
 			TreeNode<T> *temp = r->myLeft;
 			r->myLeft = r->myRight;
@@ -772,12 +772,12 @@ template<class T> class BinaryTree {
 			invertTree(r->myRight);
 		}
 
-		inline static int countItems(TreeNode<T> *r) {
+		static int countItems(TreeNode<T> *r) {
 			if (r == NULL) { return 0; }
 			return countItems(r->myLeft) + 1 + countItems(r->myRight);
 		}
 
-		inline static int numCounter(TreeNode<T> *r, T t) {
+		static int numCounter(TreeNode<T> *r, T t) {
 			if (r == NULL) { return 0; }
 
 			if (r->myObj == t) {
@@ -789,7 +789,7 @@ template<class T> class BinaryTree {
 
 		int maxWidth = 0;
 
-		inline int findMaxWidth(TreeNode<T> *r) {
+		int findMaxWidth(TreeNode<T> *r) {
 			Queue<TreeNode<T>*> *q = new Queue<TreeNode<T>*>();
 			int levelNodes = 0;
 			if (r == NULL) return 0;
@@ -813,7 +813,7 @@ template<class T> class BinaryTree {
 			return maxWidth;
 		}
 
-		inline int findMaxHeight(TreeNode<T> *r) {
+		int findMaxHeight(TreeNode<T> *r) {
 			if (r == NULL) { return 0; }
 			return (1 + std::max(findMaxHeight(r->myLeft), findMaxHeight(r->myRight)));
 		}
@@ -827,7 +827,7 @@ template<class T> class BinaryTree {
 			root = NULL;
 		}
 
-		inline void add(T t) {
+		void add(T t) {
 			TreeNode<T> *temp = new TreeNode<T>(t);
 
 			if (root == NULL) {
@@ -854,7 +854,7 @@ template<class T> class BinaryTree {
 			}
 		}
 
-		inline void remove(T t) {
+		void remove(T t) {
 			TreeNode<T> *prev = root;
 			TreeNode<T> *spot = root;
 			while (numCounter(root, t) != 0) {
@@ -908,25 +908,25 @@ template<class T> class BinaryTree {
 			}
 		}
 
-		inline int width() {
+		int width() {
 			int w = findMaxWidth(root);
 			maxWidth = 0;
 			return w;
 		}
 
-		inline int height() { return findMaxHeight(root); }
+		int height() { return findMaxHeight(root); }
 
-		inline void invert() { invertTree(root); }
+		void invert() { invertTree(root); }
 
-		inline void printPreOrder() { printPreOrderT(root); }
-		inline void printInOrder() { printInOrderT(root); }
-		inline void printPostOrder() { printPreOrderT(root); }
+		void printPreOrder() { printPreOrderT(root); }
+		void printInOrder() { printInOrderT(root); }
+		void printPostOrder() { printPreOrderT(root); }
 
-		inline void clear() { root = NULL; }
+		void clear() { root = NULL; }
 
-		inline int size() { return countItems(root); }
+		int size() { return countItems(root); }
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 
@@ -947,11 +947,11 @@ template<class T> class PQNode {
 			queue = new Queue<T>();
 		}
 
-		inline void add(T t) {
+		void add(T t) {
 			queue->enqueue(t);
 		}
 
-		inline int compareTo(PQNode<T> *o) {
+		int compareTo(PQNode<T> *o) {
 			if (o->getPriority() == this->getPriority()) {
 				return 0;
 			}
@@ -964,19 +964,19 @@ template<class T> class PQNode {
 			return -1;
 		}
 
-		inline int getPriority() {
+		int getPriority() {
 			return priority;
 		}
 
-		inline Queue<T>* getList() {
+		Queue<T>* getList() {
 			return queue;
 		}
 
-		inline int size() {
+		int size() {
 			return queue->size();
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return queue->isEmpty();
 		}
 };
@@ -993,13 +993,13 @@ template<class T> class PriorityQueue {
 			list = new std::vector<PQNode<T>*>();
 		}
 
-		inline void enqueue(T t, int priority) {
+		void enqueue(T t, int priority) {
 			PQNode<T> *temp = new PQNode<T>(priority);
 			temp->add(t);
 			enqueue(temp);
 		}
 
-		inline void enqueue(PQNode<T> *item) {
+		void enqueue(PQNode<T> *item) {
 			for (int i = 0; i < list->size(); i++) {
 				PQNode<T> *temp = list->at(i);
 				if (item->compareTo(temp) > 0) {
@@ -1018,7 +1018,7 @@ template<class T> class PriorityQueue {
 			list->push_back(item);
 		}
 
-		inline PQNode<T> dequeue() {
+		PQNode<T> dequeue() {
 			for (int i = 0; i < list->size(); i++) {
 				PQNode<T> temp = list[i];
 				if (!temp->isEmpty()) {
@@ -1029,7 +1029,7 @@ template<class T> class PriorityQueue {
 			return new PQNode<T>(0);
 		}
 
-		inline PQNode<T> peek() {
+		PQNode<T> peek() {
 			for (int i = 0; i < list->size(); i++) {
 				PQNode<T> *temp = list[i];
 				if (!temp->isEmpty()) {
@@ -1039,14 +1039,14 @@ template<class T> class PriorityQueue {
 			return new PQNode<T>(0);
 		}
 
-		inline void print() {
+		void print() {
 			for (int i = 0; i < list->size(); i++) {
 				PQNode<T> *temp = list->at(i);
 				temp->getList()->print();
 			}
 		}
 
-		inline int size() {
+		int size() {
 			if (list->size() == 0) return 0;
 			else {
 				int cnt = 0;
@@ -1057,11 +1057,11 @@ template<class T> class PriorityQueue {
 			}
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 
-		inline std::vector<PQNode<T>> getList() {
+		std::vector<PQNode<T>> getList() {
 			return list;
 		}
 };
@@ -1073,7 +1073,7 @@ template<class T> class ArrayList {
 		unsigned int memsize;
 		const static int basesize = 16;
 
-		inline void copy(const ArrayList<T> &a) {
+		void copy(const ArrayList<T> &a) {
 			array = new T[a.memsize];
 			if (array == NULL) {
 				memFail();
@@ -1085,7 +1085,7 @@ template<class T> class ArrayList {
 			_size = a._size;
 		}
 
-		inline void doublesize() {
+		void doublesize() {
 			T* temp = NULL;
 			int new_size;
 			if (memsize == 0) {
@@ -1107,7 +1107,7 @@ template<class T> class ArrayList {
 			memsize = new_size;
 		}
 
-		inline void halfsize() {
+		void halfsize() {
 			int resize = memsize / 2;
 			if (memsize < (basesize * 2)) {
 				resize = basesize;
@@ -1124,11 +1124,11 @@ template<class T> class ArrayList {
 			memsize = resize;
 		}
 
-		inline void memFail() {
+		void memFail() {
 			std::cout << "Memory Allocation Failed" << std::endl;
 		}
 
-		inline void badAccess() {
+		void badAccess() {
 			std::cout << "Attempting to subscript array element that doesn't exist" << std::endl;
 		}
 
@@ -1167,11 +1167,11 @@ template<class T> class ArrayList {
 			copy(a);
 		}
 
-		inline T& operator [] (unsigned int index) {
+		T& operator [] (unsigned int index) {
 			return get(index);
 		}
 
-		inline void add(unsigned int index, const T &item) {
+		void add(unsigned int index, const T &item) {
 			if (index > _size) {
 				badAccess();
 			}
@@ -1185,7 +1185,7 @@ template<class T> class ArrayList {
 			_size++;
 		}
 
-		inline void add(const T &item) {
+		void add(const T &item) {
 			if ((_size + 1) > memsize) {
 				doublesize();
 			}
@@ -1193,13 +1193,13 @@ template<class T> class ArrayList {
 			_size++;
 		}
 
-		inline void appendAll(const ArrayList<T> &items) {
+		void appendAll(const ArrayList<T> &items) {
 			for (int i = 0; i<items._size; i++) {
 				add(items.array[i]);
 			}
 		}
 
-		inline bool contains(const T &item) {
+		bool contains(const T &item) {
 			for (int i = 0; i<_size; i++) {
 				if (array[i] == item) {
 					return true;
@@ -1208,7 +1208,7 @@ template<class T> class ArrayList {
 			return false;
 		}
 
-		inline bool equals(const ArrayList<T> &a) {
+		bool equals(const ArrayList<T> &a) {
 			if (_size != a._size) {
 				return false;
 			}
@@ -1220,7 +1220,7 @@ template<class T> class ArrayList {
 			return true;
 		}
 
-		inline T& get(unsigned int index) {
+		T& get(unsigned int index) {
 			if (index >(_size - 1)) {
 				badAccess();
 			}
@@ -1228,7 +1228,7 @@ template<class T> class ArrayList {
 		}
 
 
-		inline void remove(unsigned int index) {
+		void remove(unsigned int index) {
 			if (index > (_size - 1)) {
 				badAccess();
 			}
@@ -1241,19 +1241,19 @@ template<class T> class ArrayList {
 			}
 		}
 
-		inline void print() {
+		void print() {
 			for (int i = 0; i <= _size; i++) {
 				std::cout << this->get(i) << std::endl;
 			}
 		}
 
-		inline void clear() {
+		void clear() {
 			for (int i = _size - 1; i >= 0; i--) {
 				remove(i);
 			}
 		}
 
-		inline void reverse() {
+		void reverse() {
 			T* temp = new T[memsize];
 			if (temp == NULL) {
 				memFail();
@@ -1266,7 +1266,7 @@ template<class T> class ArrayList {
 		}
 
 
-		inline void set(unsigned int index, const T &item) {
+		void set(unsigned int index, const T &item) {
 			if (index > _size) {
 				badAccess();
 			}
@@ -1274,15 +1274,15 @@ template<class T> class ArrayList {
 		}
 
 
-		inline int size() {
+		int size() {
 			return _size;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (_size == 0);
 		}
 
-		inline ArrayList<T>* subList(unsigned int fromIndex, unsigned int toIndex) {
+		ArrayList<T>* subList(unsigned int fromIndex, unsigned int toIndex) {
 			ArrayList<T>* temp = new ArrayList();
 			if (temp == NULL) {
 				memFail();
@@ -1299,7 +1299,7 @@ template<class T> class ArrayList {
 			return temp;
 		}
 
-		inline void trimToSize() {
+		void trimToSize() {
 			if (_size == memsize) {
 				return;
 			}
@@ -1329,48 +1329,48 @@ template<class T> class Deque {
 			myList = new std::vector<T>;
 		}
 
-		inline void pushFront(T t) {
+		void pushFront(T t) {
 			myList->push_back(T);
 		}
 
-		inline void pushBack(T t) {
+		void pushBack(T t) {
 			myList->insert(myList->begin(), t);
 		}
 
-		inline T popFront() {
+		T popFront() {
 			T obj = myList->back();
 			myList->pop_back();
 			return obj;
 		}
 
-		inline T popBack() {
+		T popBack() {
 			T obj = myList->at(0);
 			myList->erase(myList->begin());
 			return obj;
 		}
 
-		inline T peekFront() {
+		T peekFront() {
 			return myList->at(0);
 		}
 
-		inline T peekBack() {
+		T peekBack() {
 			return myList->back();
 		}
 
-		inline void print() {
+		void print() {
 			for (int i = 0; i < this->size(); i++) {
 				std::cout << myList[i] << std::endl;
 			}
 		}
 
-		inline void clear() { myList->clear(); }
+		void clear() { myList->clear(); }
 
-		inline int size() {
+		int size() {
 			int s = myList->size();
 			return s;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -1420,7 +1420,7 @@ template<class T> class CircularQueue {
 			myCurrentSize = 0;
 		}
 
-		inline void enqueue(T t) {
+		void enqueue(T t) {
 			myEnd = (myEnd + 1) % myMaxSize;
 			myBuffer[myEnd] = t;
 			if (myCurrentSize == myMaxSize) {
@@ -1430,7 +1430,7 @@ template<class T> class CircularQueue {
 			}
 		}
 
-		inline T dequeue() {
+		T dequeue() {
 			if (myCurrentSize == 0) {
 				std::cout << "The buffer is empty!" << std::endl;
 				return NULL;
@@ -1441,7 +1441,7 @@ template<class T> class CircularQueue {
 			}
 		}
 
-		inline T peek() {
+		T peek() {
 			if (myCurrentSize == 0) {
 				std::cout << "The buffer is empty!" << std::endl;
 				return NULL;
@@ -1451,7 +1451,7 @@ template<class T> class CircularQueue {
 			}
 		}
 
-		inline void print() {
+		void print() {
 			CircularQueue<T> *temp = new CircularQueue<T>(this);
 
 			while (!(temp->isEmpty())) {
@@ -1459,22 +1459,22 @@ template<class T> class CircularQueue {
 			}
 		}
 
-		inline void clear() {
+		void clear() {
 			myCurrentSize = 0;
 			myStart = 0;
 			myEnd = 0;
 			myBuffer = new T[myMaxSize];
 		}
 
-		inline int size() {
+		int size() {
 			return myCurrentSize;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (myCurrentSize == 0);
 		}
 
-		inline bool isFull() {
+		bool isFull() {
 			return (myCurrentSize == myMaxSize);
 		}
 };
@@ -1492,7 +1492,7 @@ template<class T> class CircularLinkedList {
 			myList = NULL;
 		}
 
-		inline void addFront(T t) {
+		void addFront(T t) {
 			Node<T> *temp = new Node<T>(t);
 
 			if (myList == NULL) {
@@ -1514,7 +1514,7 @@ template<class T> class CircularLinkedList {
 			}
 		}
 
-		inline void addBack(T t) {
+		void addBack(T t) {
 			Node<T> *temp = new Node<T>(t);
 
 			if (myList == NULL) {
@@ -1532,7 +1532,7 @@ template<class T> class CircularLinkedList {
 			temp->myNext = myList;
 		}
 
-		inline T popFront() {
+		T popFront() {
 			Node<T> *temp = myList;
 			Node<T> *myLast = myList;
 
@@ -1549,7 +1549,7 @@ template<class T> class CircularLinkedList {
 			return NULL;
 		}
 
-		inline T popBack() {
+		T popBack() {
 			Node<T> *temp = myList;
 			Node<T> *myLast = myList;
 
@@ -1566,7 +1566,7 @@ template<class T> class CircularLinkedList {
 			return NULL;
 		}
 
-		inline void print() {
+		void print() {
 			Node<T> *myLast = myList;
 
 			if (myList != NULL) {
@@ -1578,9 +1578,9 @@ template<class T> class CircularLinkedList {
 			}
 		}
 
-		inline void clear() { myLast, myList = NULL; }
+		void clear() { myLast, myList = NULL; }
 
-		inline int size() {
+		int size() {
 			Node<T> *myLast = myList;
 			int cnt = 0;
 			if (myList != NULL) {
@@ -1594,7 +1594,7 @@ template<class T> class CircularLinkedList {
 			return 0;
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size() == 0);
 		}
 };
@@ -1610,7 +1610,7 @@ template<class T> class Heap {
 		bool minHeaped = false;
 		bool maxHeaped = false;
 
-		inline void maxHeapify(int i) {
+		void maxHeapify(int i) {
 			int left = (2 * i) + 1;
 			int right = (2 * i) + 2;
 			int largest = i;
@@ -1622,12 +1622,12 @@ template<class T> class Heap {
 				largest = right;
 			}
 			if (largest != i) {
-				swap(data[largest], data[i]);
+				std::swap(data[largest], data[i]);
 				maxHeapify(largest);
 			}
 		}
 
-		inline void minHeapify(int i) {
+		void minHeapify(int i) {
 			int left = (2 * i) + 1;
 			int right = (2 * i) + 2;
 			int smallest = i;
@@ -1639,12 +1639,12 @@ template<class T> class Heap {
 				smallest = right;
 			}
 			if (smallest != i) {
-				swap(data[smallest], data[i]);
+				std::swap(data[smallest], data[i]);
 				minHeapify(smallest);
 			}
 		}
 
-		inline void siftDown(int start, int end) {
+		void siftDown(int start, int end) {
 			int root = start;
 			while (getLeftChild(root) != -1 && getLeftChild(root) <= end) {
 				int left = getLeftChild(root);
@@ -1666,7 +1666,7 @@ template<class T> class Heap {
 			}
 		}
 
-		inline void siftDownMin(int start, int end) {
+		void siftDownMin(int start, int end) {
 			int root = start;
 			while (getLeftChild(root) <= end && getLeftChild(root) != -1) {
 				int left = getLeftChild(root);
@@ -1701,11 +1701,11 @@ template<class T> class Heap {
 			data = new std::vector<T>();
 		}
 
-		inline T at(int i) {
+		T at(int i) {
 			return data->at(i);
 		}
 
-		inline bool insert(T t) {
+		bool insert(T t) {
 			if (data->size() == 0) {
 				minValue = t;
 				maxValue = t;
@@ -1719,7 +1719,7 @@ template<class T> class Heap {
 			return true;
 		}
 
-		inline bool sortedInsert(T t) {
+		bool sortedInsert(T t) {
 			if (data->size() == 0) {
 				minValue = x;
 				maxValue = x;
@@ -1739,7 +1739,7 @@ template<class T> class Heap {
 			return true;
 		}
 
-		inline bool erase(int i) {
+		bool erase(int i) {
 			if (i >= data->size()) {
 				return false;
 			} else {
@@ -1748,15 +1748,15 @@ template<class T> class Heap {
 			}
 		}
 
-		inline int maxElement() {
+		int maxElement() {
 			return maxValue;
 		}
 
-		inline int minElement() {
+		int minElement() {
 			return minValue;
 		}
 
-		inline int getParent(int i) {
+		int getParent(int i) {
 			int parentIndex;
 			if (i == 0) {
 				parentIndex = 0;
@@ -1766,7 +1766,7 @@ template<class T> class Heap {
 			return parentIndex;
 		}
 
-		inline int getLeftChild(int i) {
+		int getLeftChild(int i) {
 			int leftChildIndex = (2 * i) + 1;
 			if (leftChildIndex >= data->size()) {
 				leftChildIndex = -1;
@@ -1774,7 +1774,7 @@ template<class T> class Heap {
 			return leftChildIndex;
 		}
 
-		inline int getRightChild(int i) {
+		int getRightChild(int i) {
 			int rightChildIndex = (2 * i) + 2;
 			if (rightChildIndex >= data->size()) {
 				rightChildIndex = -1;
@@ -1782,7 +1782,7 @@ template<class T> class Heap {
 			return rightChildIndex;
 		}
 
-		inline void buildMaxHeap() {
+		void buildMaxHeap() {
 			for (int i = floor(data->size() / 2); i >= 0; i--) {
 				maxHeapify(i);
 			}
@@ -1790,7 +1790,7 @@ template<class T> class Heap {
 			maxHeaped = true;
 		}
 
-		inline void buildMinHeap() {
+		void buildMinHeap() {
 			for (int i = floor(data->size() / 2); i >= 0; i--) {
 				minHeapify(i);
 			}
@@ -1798,7 +1798,7 @@ template<class T> class Heap {
 			maxHeaped = false;
 		}
 
-		inline void maxHeapSort() {
+		void maxHeapSort() {
 			if (!maxHeaped) {
 				buildMaxHeap();
 			}
@@ -1810,7 +1810,7 @@ template<class T> class Heap {
 			}
 		}
 
-		inline void minHeapSort() {
+		void minHeapSort() {
 			if (!minHeaped) {
 				buildMinHeap();
 			}
@@ -1823,7 +1823,7 @@ template<class T> class Heap {
 			}
 		}
 
-		inline void print() {
+		void print() {
 			if(data->size() == 0) {
 				std::cout << "Heap is empty" << std::endl;
 			} else {
@@ -1835,17 +1835,17 @@ template<class T> class Heap {
 		   }
 		}
 
-		inline void clear() {
+		void clear() {
 			maxHeaped = false;
 			minHeaped = false;
 			data->clear();
 		}
 
-		inline int size() {
+		int size() {
 			return data->size();
 		}
 
-		inline bool isEmpty() {
+		bool isEmpty() {
 			return (this->size == 0);
 		}
 

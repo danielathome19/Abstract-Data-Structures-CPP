@@ -428,7 +428,6 @@ int main() {
 	// Call method to test data structure methods
 	// bintreetest();
 	std::cout << "Hello world!" << std::endl;
-
 	heaptest();
 
 	getchar();
