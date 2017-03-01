@@ -4,8 +4,6 @@
  * Created: 9/19/16
  * Purpose: A collection of data structures written in C++ using templates.
  *
- * To do: Implement contains methods for all classes
- *
  * Currently implemented:
  *	-Linked List
  *	-Doubly Linked list
@@ -205,6 +203,15 @@ template<class T> class LinkedList {
 			return items;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -308,6 +315,15 @@ template<class T> class DoublyLinkedList {
 			return items;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { myList = NULL; }
 
 		int size() {
@@ -400,6 +416,15 @@ template<class T> class LinkedListStack {
 			return items;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -463,6 +488,15 @@ template<class T> class Stack {
 				items->push_back(this->pop());
 			}
 			return items;
+		}
+
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
 		}
 
 		void clear() { myList->clear(); }
@@ -546,6 +580,15 @@ template<class T> class LinkedListQueue {
 			return list;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -612,6 +655,15 @@ template<class T> class Queue {
 
 		std::vector<T>* getList() {
 			return myList;
+		}
+
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
 		}
 
 		void clear() { myList->clear(); }
@@ -749,6 +801,15 @@ template<class T> class Set {
 			return items;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { myLast, myList = NULL; }
 
 		int size() {
@@ -884,6 +945,15 @@ template<class T> class Multiset {
 				items->add(this->get(i));
 			}
 			return items;
+		}
+
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
 		}
 
 		void clear() { myLast, myList = NULL; }
@@ -1147,6 +1217,15 @@ template<class T> class BinaryTree {
 			return items;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getListInOrder();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { root = NULL; }
 
 		int size() { return countItems(root); }
@@ -1271,6 +1350,24 @@ template<class T> class PriorityQueue {
 			}
 		}
 
+
+		std::vector<PQNode<T>> getList() {
+			return list;
+		}
+
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
+		void clear() {
+			list->clear();
+		}
+
 		int size() {
 			if (list->size() == 0) return 0;
 			else {
@@ -1284,10 +1381,6 @@ template<class T> class PriorityQueue {
 
 		bool isEmpty() {
 			return (this->size() == 0);
-		}
-
-		std::vector<PQNode<T>> getList() {
-			return list;
 		}
 };
 
@@ -1481,6 +1574,15 @@ template<class T> class ArrayList {
 			return items;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() {
 			for (int i = _size - 1; i >= 0; i--) {
 				remove(i);
@@ -1601,6 +1703,15 @@ template<class T> class Deque {
 			return myList;
 		}
 
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
+		}
+
 		void clear() { myList->clear(); }
 
 		int size() {
@@ -1705,6 +1816,15 @@ template<class T> class CircularQueue {
 				items->push_back(temp->dequeue());
 			}
 			return items;
+		}
+
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
 		}
 
 		void clear() {
@@ -1839,6 +1959,15 @@ template<class T> class CircularLinkedList {
 				items->push_back(myLast->myObj);
 			}
 			return items;
+		}
+
+		bool contains(T t) {
+			std::vector<T> *items = this->getList();
+
+			for (int i = 0; i < items->size(); i++) {
+				if (items->at(i) == t) { return true; }
+			}
+			return false;
 		}
 
 		void clear() { myLast, myList = NULL; }
