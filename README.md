@@ -1,14 +1,10 @@
 #About
 A collection of data structures using C++ templates.
 
-Most data structures are based off of linked lists for educational purposes; rather than arrays. 
-
-_These will be modified later on to be either included with headers such as LinkedListQueue/ArrayQueue, or implemented with interfaces._
-
 #Usage
 Program files are kept within the _main_ branch.
 
-All classes are kept within the __AbstractLists.h__ file, to be included within the program. All currently implemented structures are written at the top of the file.
+All classes are kept within the __AbstractLists.h__ file in a namespace __adscol__, to be included within the program. All currently implemented structures are written at the top of the file.
 
 The __Source.cpp__ file contains working tests for most/all methods for each data structure.
 
