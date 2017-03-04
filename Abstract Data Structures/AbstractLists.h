@@ -133,12 +133,11 @@ template<class T> class LinkedList {
 			} else {
 				int cnt = 0;
 				myLast = myList;
-				Node<T> *tempx;
 				while ((myLast->myNext != NULL) && (cnt <= index)) {
 					if (cnt == (index - 1)) {
-						tempx = myLast;
-						tempx->myNext = myLast->myNext->myNext;
-						myLast = tempx;
+						Node<T> *temp = myLast;
+						temp->myNext = myLast->myNext->myNext;
+						myLast = temp;
 					}
 					cnt++;
 					myLast = myLast->myNext;
