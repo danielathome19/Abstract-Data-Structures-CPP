@@ -174,15 +174,12 @@ template<class T> class LinkedList {
 		T get(int index) {
 			int cnt = 0;
 			myLast = myList;
-			T obj = NULL;
 			while ((myLast->myNext != NULL) && (cnt <= index)) {
-				if (cnt == index) obj = myLast->myObj;
+				if (cnt == index) return myLast->myObj;
 				myLast = myLast->myNext;
 				cnt++;
 			}
-			if (cnt == index) obj = myLast->myObj;
-			myLast = myList;
-			return obj;
+			if (cnt == index) return myLast->myObj;
 		}
 
 		void print() {
