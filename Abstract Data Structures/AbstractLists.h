@@ -203,7 +203,7 @@ template<class T> class LinkedList {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -315,7 +315,7 @@ template<class T> class DoublyLinkedList {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -416,7 +416,7 @@ template<class T> class LinkedListStack {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -490,7 +490,7 @@ template<class T> class Stack {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -580,7 +580,7 @@ template<class T> class LinkedListQueue {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -657,7 +657,7 @@ template<class T> class Queue {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -801,7 +801,7 @@ template<class T> class Set {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -947,7 +947,7 @@ template<class T> class Multiset {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -1217,7 +1217,7 @@ template<class T> class BinaryTree {
 			std::vector<T> *items = this->getListInOrder();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -1355,7 +1355,7 @@ template<class T> class PriorityQueue {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -1574,7 +1574,7 @@ template<class T> class ArrayList {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -1703,7 +1703,7 @@ template<class T> class Deque {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -1818,7 +1818,7 @@ template<class T> class CircularQueue {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -1961,7 +1961,7 @@ template<class T> class CircularLinkedList {
 			std::vector<T> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) { return true; }
+				if (items->at(i) == t) return true;
 			}
 			return false;
 		}
