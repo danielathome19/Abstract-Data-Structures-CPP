@@ -240,7 +240,6 @@ template<class T> class DoublyLinkedList {
 
 		DoublyLinkedList(T t) {
 			myList = new Node<T>(t);
-			myLast = myList;
 		}
 
 		void add(T t) {
@@ -1662,7 +1661,7 @@ template<class T> class Deque {
 		}
 
 		void pushFront(T t) {
-			myList->push_back(T);
+			myList->push_back(t);
 		}
 
 		void pushBack(T t) {
@@ -1966,7 +1965,7 @@ template<class T> class CircularLinkedList {
 			return false;
 		}
 
-		void clear() { myLast, myList = NULL; }
+		void clear() { myList = NULL; }
 
 		int size() {
 			Node<T> *myLast = myList;
@@ -1991,18 +1990,18 @@ template<class T> class SkipNode {
 	public:
 		T myObj;
 		SkipNode *myNext;
-		Stack<SkipNode<T>> *myLevels;
+		Stack<SkipNode<T>*> *myLevels;
 
 		~SkipNode() {
 			delete myObj;
 			delete myNext;
-			delete myTop;
+			delete[] myLevels;
 		}
 
 		SkipNode(T t) {
 			myObj = t;
 			myNext = NULL;
-			myTop = NULL;
+            myLevels = new Stack<SkipNode<T>*>();
 		}
 };
 
@@ -2157,12 +2156,12 @@ template<class T> class Heap {
 
 		bool sortedInsert(T t) {
 			if (data->size() == 0) {
-				minValue = x;
-				maxValue = x;
-			} else if (x > maxValue) {
-				maxValue = x;
-			} else if (x < minValue) {
-				minValue = x;
+				minValue = t;
+				maxValue = t;
+			} else if (t > maxValue) {
+				maxValue = t;
+			} else if (t < minValue) {
+				minValue = t;
 			}
 
 			for (int i = 0; i, data->size(); i++) {
