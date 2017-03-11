@@ -460,7 +460,7 @@ template<class T> class Stack {
 		}
 
 		T pop() {
-			if (myList->size() == 0) { return NULL; }
+			if (myList->size() == 0) { return (T)NULL; }
 			T temp = myList->at(myList->size() - 1);
 			myList->erase(myList->begin() + myList->size() - 1);
 			return temp;
@@ -621,7 +621,7 @@ template<class T> class Queue {
 
 		Queue(Queue<T> *copy) {
 			myList = new std::vector<T>();
-			for (int i = 0; i < copy.size(); i++) {
+			for (int i = 0; i < copy->size(); i++) {
 				this->enqueue(copy->myList->at(i));
 			}
 		}
@@ -631,14 +631,14 @@ template<class T> class Queue {
 		}
 
 		T dequeue() {
-			if (myList->size() == 0) { return NULL; }
+			if (myList->size() == 0) { return (T)NULL; }
 			T temp = myList->at(0);
 			myList->erase(myList->begin() + 0);
 			return temp;
 		}
 
 		T peek() {
-			if (myList->size() == 0) { return NULL; }
+			if (myList->size() == 0) { return (T)NULL; }
 			return myList->at(0);
 		}
 
@@ -731,8 +731,7 @@ template<class T> class Set {
 			if (myList == NULL) {
 				myList = temp;
 				myLast = temp;
-			}
-			else {
+			} else {
 				this->checkDuplicates(t);
 			}
 		}
@@ -905,7 +904,7 @@ template<class T> class Multiset {
 		T get(int index) {
 			int cnt = 0;
 			myLast = myList;
-			T obj = NULL;
+			T obj = (T)NULL;
 			while ((myLast->myNext != NULL) && (cnt <= index)) {
 				if (cnt == index) obj = myLast->myObj;
 				myLast = myLast->myNext;
@@ -1317,9 +1316,9 @@ template<class T> class PriorityQueue {
 			list->push_back(item);
 		}
 
-		PQNode<T> dequeue() {
+		PQNode<T>* dequeue() {
 			for (int i = 0; i < list->size(); i++) {
-				PQNode<T> temp = list[i];
+				PQNode<T> *temp = list->at(i);
 				if (!temp->isEmpty()) {
 					list->erase(list->begin() + i);
 					return temp;
@@ -1328,9 +1327,9 @@ template<class T> class PriorityQueue {
 			return new PQNode<T>(0);
 		}
 
-		PQNode<T> peek() {
+		PQNode<T>* peek() {
 			for (int i = 0; i < list->size(); i++) {
-				PQNode<T> *temp = list[i];
+				PQNode<T> *temp = list->at(i);
 				if (!temp->isEmpty()) {
 					return temp;
 				}
@@ -1346,15 +1345,15 @@ template<class T> class PriorityQueue {
 		}
 
 
-		std::vector<PQNode<T>> getList() {
+		std::vector<PQNode<T>*>* getList() {
 			return list;
 		}
 
 		bool contains(T t) {
-			std::vector<T> *items = this->getList();
+			std::vector<PQNode<T>*> *items = this->getList();
 
 			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) return true;
+				if (items->at(i)->getList()->contains(t)) return true;
 			}
 			return false;
 		}
@@ -1368,7 +1367,7 @@ template<class T> class PriorityQueue {
 			else {
 				int cnt = 0;
 				for (int i = 0; i < list->size(); i++) {
-					PQNode<T> *temp = list[i];
+					PQNode<T> *temp = list->at(i);
 					cnt += temp->size();
 				}
 			}
@@ -1585,7 +1584,7 @@ template<class T> class ArrayList {
 		}
 
 		void reverse() {
-			T* temp = new T[memsize];
+			T *temp = new T[memsize];
 			if (temp == NULL) {
 				memFail();
 			}
@@ -1777,7 +1776,7 @@ template<class T> class CircularQueue {
 		T dequeue() {
 			if (myCurrentSize == 0) {
 				std::cout << "The buffer is empty!" << std::endl;
-				return NULL;
+				return (T)NULL;
 			} else {
 				myStart = (myStart + 1) % myMaxSize;
 				myCurrentSize--;
@@ -1788,7 +1787,7 @@ template<class T> class CircularQueue {
 		T peek() {
 			if (myCurrentSize == 0) {
 				std::cout << "The buffer is empty!" << std::endl;
-				return NULL;
+				return (T)NULL;
 			} else {
 				myStart = (myStart + 1) % myMaxSize;
 				return myBuffer[myStart];
@@ -1909,7 +1908,7 @@ template<class T> class CircularLinkedList {
 				temp = NULL;
 				return obj;
 			}
-			return NULL;
+			return (T)NULL;
 		}
 
 		T popBack() {
@@ -1926,7 +1925,7 @@ template<class T> class CircularLinkedList {
 				myLast = NULL;
 				return obj;
 			}
-			return NULL;
+			return (T)NULL;
 		}
 
 		void print() {
@@ -2166,7 +2165,7 @@ template<class T> class Heap {
 
 			for (int i = 0; i, data->size(); i++) {
 				if (t < data->at(i)) {
-					data->insert(data->begin + i, t);
+					data->insert(data->begin() + i, t);
 					return true;
 				}
 			}
@@ -2281,7 +2280,7 @@ template<class T> class Heap {
 		}
 
 		bool isEmpty() {
-			return (this->size == 0);
+			return (this->size() == 0);
 		}
 
 };

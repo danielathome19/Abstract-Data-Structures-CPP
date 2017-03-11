@@ -414,7 +414,7 @@ void circularqueuetest() {
 	list->clear();
 	std::cout << "Size: " << list->size() << std::endl;
 
-	CircularQueue<char*> *q = new CircularQueue<char*>(3);
+	CircularQueue<std::string> *q = new CircularQueue<std::string>(3);
 
 	q->enqueue("The");
 	q->enqueue("end");
@@ -484,7 +484,7 @@ int main() {
 	// Call method to test data structure methods
 	// bintreetest();
 	std::cout << "Hello world!" << std::endl;
-	heaptest();
+	//heaptest();
 
 	getchar();
 	return 0;
