@@ -31,6 +31,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include <algorithm>
 
 #ifndef ABSTRACTLISTS_H
@@ -2000,15 +2001,15 @@ template<class K, class V> class MapEntry {
 		}
 
 		MapEntry(K key, V value) {
-			this->key = key;
-			this->value = value;
+			this->key = &key;
+			this->value = &value;
 		}
 
-		K getKey() {
+		K* getKey() {
 			return key;
 		}
 
-		V getValue() {
+		V* getValue() {
 			return value;
 		}
 
@@ -2016,11 +2017,11 @@ template<class K, class V> class MapEntry {
 			return cleared;
 		}
 
-		void setKey(K key) {
+		void setKey(K *key) {
 			this->key = key;
 		}
 
-		void setValue(V value) {
+		void setValue(V *value) {
 			this->value = value;
 		}
 
@@ -2087,7 +2088,7 @@ template<class K, class V> class Map {
 			{
 				index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
 				if (hashTable->at(index) == NULL) return -1;
-				else if (hashTable->at(index)->isCleared()) continue;
+					else if (hashTable->at(index)->isCleared()) continue;
 				else if (std::hash<K>{}(key) == std::hash<K>{}(hashTable->at(index)->getKey())) return index;
 			}
 			return -1;
@@ -2102,9 +2103,9 @@ template<class K, class V> class Map {
 				for (int i = 0; i < tableSize; i++)
 				{
 					index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
-					if (hashTable->at(index) == null || hashTable->at(index)->isCleared())
+					if (hashTable->at(index) == NULL || hashTable->at(index)->isCleared())
 					{
-						hashTable->assign(index, (new Entry<K, V>(key, value)));
+						hashTable->assign(index, (new MapEntry<K, V>(key, value)));
 						numberOfEntries++;
 						checkForRehashing();
 						return;
@@ -2113,7 +2114,7 @@ template<class K, class V> class Map {
 				std::cout << ("Unable to put entry. Memory Full.") << std::endl;
 			}
 			else {
-				hashTable->at(positionInfo)->setValue(value);
+				hashTable->at(positionInfo)->setValue(&value);
 			}
 		}
 
@@ -2125,7 +2126,7 @@ template<class K, class V> class Map {
 			}
 		}
 
-		V get(K key) {
+		V* get(K key) {
 			int positionInfo = searchForEntry(key);
 			if (positionInfo != -1) return hashTable->at(positionInfo)->getValue();
 
@@ -2138,15 +2139,15 @@ template<class K, class V> class Map {
 			}
 		}
 
-		std::vector<T>* getList() {
-			std::vector<T> *items = new std::vector<T>();
+		std::vector<V>* getList() {
+			std::vector<V> *items = new std::vector<V>();
 
 			for (int i = 0; i < hashTable->size(); i++) {
 				if (hashTable->at(i) != NULL) items->push_back(hashTable->at(i));
 			}
 		}
 
-		bool contains(T t) {
+		bool contains(int key) {
 			int positionInfo = searchForEntry(key);
 			return (positionInfo != -1);
 		}
