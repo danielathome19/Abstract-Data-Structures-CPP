@@ -19,10 +19,10 @@
  *	-Double Ended Queue (Deque)
  *	-Circular Queue
  *	-Circular Linked List
+ *	-Map (Dictionary)
  *
  * In progress:
  *	-Heap
- *	-Map
  *	-Skip List
  *	-Graph
  *
