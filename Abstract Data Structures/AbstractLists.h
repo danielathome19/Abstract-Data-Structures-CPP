@@ -1,5 +1,4 @@
 /*
- *
  * Author: Daniel Szelogowski (C) 2016
  * Created: 9/19/16
  * Purpose: A collection of data structures written in C++ using templates.
