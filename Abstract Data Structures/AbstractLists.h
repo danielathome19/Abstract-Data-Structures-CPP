@@ -1130,7 +1130,26 @@ template<class T> class BinaryTree {
 		void remove(T t) {
 			TreeNode<T> *prev = root;
 			TreeNode<T> *spot = root;
+			bool passedRoot = false;
 			while (numCounter(root, t) != 0) {
+				if (spot->myObj == t && !passedRoot) {
+					if (root->myRight != NULL) {
+						TreeNode<T> *temp = root->myRight->myLeft;
+						TreeNode<T> *tempL = root->myLeft;
+						root = root->myRight;
+						root->myLeft = tempL;
+						this->add(temp);
+					} else if (root->myLeft != NULL) {
+						TreeNode<T> *temp = root->myLeft->myRight;
+						TreeNode<T> *tempR = root->myRight;
+						root = root->myLeft;
+						root->myRight = tempR;
+						this->add(temp);
+					} else {
+						root = NULL;
+					}
+				}
+
 				while (spot->myObj != t) {
 					if (t < spot->myObj) {
 						prev = spot;
@@ -1178,6 +1197,7 @@ template<class T> class BinaryTree {
 						}
 					}
 				}
+				passedRoot = true;
 			}
 		}
 
