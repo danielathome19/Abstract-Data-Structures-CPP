@@ -1985,6 +1985,190 @@ template<class T> class CircularLinkedList {
 		}
 };
 
+template<class K, class V> class MapEntry {
+	private:
+		K *key;
+		V *value;
+		bool cleared;
+
+	public:
+		~MapEntry() {
+			delete key;
+			delete value;
+			delete cleared;
+		}
+
+		MapEntry(K key, V value) {
+			this->key = key;
+			this->value = value;
+		}
+
+		K getKey() {
+			return key;
+		}
+
+		V getValue() {
+			return value;
+		}
+
+		bool isCleared() {
+			return cleared;
+		}
+
+		void setKey(K key) {
+			this->key = key;
+		}
+
+		void setValue(V value) {
+			this->value = value;
+		}
+
+		void setCleared(bool cleared) {
+			this->cleared = cleared;
+		}
+};
+
+template<class K, class V> class Map {
+	private:
+		std::vector<MapEntry<K, V>*> *hashTable;
+		std::vector<K*> *keys;
+		int numberOfEntries, tableSize;
+		double loadFactor;
+
+		void checkForRehashing()
+		{
+			loadFactor = (double)numberOfEntries / tableSize;
+			if (loadFactor >= 0.75) rehash();
+		}
+
+		void rehash()
+		{
+			std::vector<MapEntry<K, V>*> *prevHashTable = hashTable;
+
+			numberOfEntries = 0;
+			tableSize *= 2;
+			loadFactor = 0;
+			hashTable = new std::vector<MapEntry<K, V>*>();
+			for (int i = 0; i < tableSize; i++) {
+				hashTable->push_back(NULL);
+			}
+
+			for (int i = 0; i < prevHashTable->size(); i++) {
+				if (prevHashTable->at(i) != NULL && !prevHashTable->at(i)->isCleared())
+					add(prevHashTable->at(i)->getKey(), prevHashTable->at(i)->getValue());
+			}
+		}
+
+	public:
+		~Map() {
+			delete[] hashtable;
+			delete[] keys;
+			delete numberOfEntries;
+			delete tableSize;
+			delete loadFactor;
+		}
+
+		Map() {
+			numberOfEntries = 0;
+			tableSize = 16;
+			loadFactor = 0;
+			hashTable = new std::vector<MapEntry<K, V>*>();
+			for (int i = 0; i < tableSize; i++) {
+				hashTable->push_back(NULL);
+			}
+		}
+
+		int searchForEntry(K key) {
+			int index = 0;
+			int homePosition = std::hash<K>{}(key) % tableSize;
+
+			for (int i = 0; i < tableSize; i++)
+			{
+				index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
+				if (hashTable->at(index) == NULL) return -1;
+				else if (hashTable->at(index)->isCleared()) continue;
+				else if (std::hash<K>{}(key) == std::hash<K>{}(hashTable->at(index)->getKey())) return index;
+			}
+			return -1;
+		}
+
+		void add(K key, V value) {
+			int positionInfo = searchForEntry(key);
+			if (positionInfo == -1)
+			{
+				int homePosition = std::hash<K>{}(key) % tableSize;
+				int index = 0;
+				for (int i = 0; i < tableSize; i++)
+				{
+					index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
+					if (hashTable->at(index) == null || hashTable->at(index)->isCleared())
+					{
+						hashTable->assign(index, (new Entry<K, V>(key, value)));
+						numberOfEntries++;
+						checkForRehashing();
+						return;
+					}
+				}
+				std::cout << ("Unable to put entry. Memory Full.") << std::endl;
+			}
+			else {
+				hashTable->at(positionInfo)->setValue(value);
+			}
+		}
+
+		void remove(K key) {
+			int positionInfo = searchForEntry(key);
+			if (positionInfo != -1) {
+				hashTable->at(positionInfo)->setCleared(true);
+				numberOfEntries--;
+			}
+		}
+
+		V get(K key) {
+			int positionInfo = searchForEntry(key);
+			if (positionInfo != -1) return hashTable->at(positionInfo)->getValue();
+
+			return NULL;
+		}
+
+		void print() {
+			for (int i = 0; i < hashTable->size(); i++) {
+				if (hashTable->at(i) != NULL) std::cout << hashTable->at(i)->getValue() << std::endl;
+			}
+		}
+
+		std::vector<T>* getList() {
+			std::vector<T> *items = new std::vector<T>();
+
+			for (int i = 0; i < hashTable->size(); i++) {
+				if (hashTable->at(i) != NULL) items->push_back(hashTable->at(i));
+			}
+		}
+
+		bool contains(T t) {
+			int positionInfo = searchForEntry(key);
+			return (positionInfo != -1);
+		}
+
+		void clear() {
+			numberOfEntries = 0;
+			tableSize = 16;
+			loadFactor = 0;
+			hashTable->clear();
+			for (int i = 0; i < tableSize; i++) {
+				hashTable->push_back(NULL);
+			}
+		}
+
+		int size() {
+			return numberOfEntries;
+		}
+
+		bool isEmpty() {
+			return (this->size == 0);
+		}
+};
+
 template<class T> class SkipNode {
 	public:
 		T myObj;
@@ -2285,7 +2469,6 @@ template<class T> class Heap {
 
 };
 
-template<class K, class V> class Map {};
 
 template<class T> class Graph {};
 
