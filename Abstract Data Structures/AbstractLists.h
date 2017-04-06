@@ -18,9 +18,10 @@
  *	-Double Ended Queue (Deque)
  *	-Circular Queue
  *	-Circular Linked List
- *	-Map (Dictionary)
+ *	-Map
  *
  * In progress:
+ *	-HashMap
  *	-Heap
  *	-Skip List
  *	-Graph
@@ -210,7 +211,9 @@ template<class T> class LinkedList {
 			return false;
 		}
 
-		void clear() { myLast, myList = NULL; }
+		void clear() { 
+			myLast, myList = NULL; 
+		}
 
 		int size() {
 			int cnt = 0;
@@ -321,7 +324,9 @@ template<class T> class DoublyLinkedList {
 			return false;
 		}
 
-		void clear() { myList = NULL; }
+		void clear() { 
+			myList = NULL; 
+		}
 
 		int size() {
 			if (myList == NULL) return 0;
@@ -422,7 +427,9 @@ template<class T> class LinkedListStack {
 			return false;
 		}
 
-		void clear() { myLast, myList = NULL; }
+		void clear() { 
+			myLast, myList = NULL; 
+		}
 
 		int size() {
 			int cnt = 0;
@@ -496,7 +503,9 @@ template<class T> class Stack {
 			return false;
 		}
 
-		void clear() { myList->clear(); }
+		void clear() { 
+			myList->clear(); 
+		}
 
 		int size() {
 			return myList->size();
@@ -586,7 +595,9 @@ template<class T> class LinkedListQueue {
 			return false;
 		}
 
-		void clear() { myLast, myList = NULL; }
+		void clear() { 
+			myLast, myList = NULL; 
+		}
 
 		int size() {
 			int cnt = 0;
@@ -663,7 +674,9 @@ template<class T> class Queue {
 			return false;
 		}
 
-		void clear() { myList->clear(); }
+		void clear() { 
+			myList->clear(); 
+		}
 
 		int size() {
 			return myList->size();
@@ -806,7 +819,9 @@ template<class T> class Set {
 			return false;
 		}
 
-		void clear() { myLast, myList = NULL; }
+		void clear() { 
+			myLast, myList = NULL; 
+		}
 
 		int size() {
 			int cnt = 0;
@@ -952,7 +967,9 @@ template<class T> class Multiset {
 			return false;
 		}
 
-		void clear() { myLast, myList = NULL; }
+		void clear() { 
+			myLast, myList = NULL; 
+		}
 
 		int size() {
 			int cnt = 0;
@@ -1242,7 +1259,9 @@ template<class T> class BinaryTree {
 			return false;
 		}
 
-		void clear() { root = NULL; }
+		void clear() { 
+			root = NULL; 
+		}
 
 		int size() { return countItems(root); }
 
@@ -1728,7 +1747,9 @@ template<class T> class Deque {
 			return false;
 		}
 
-		void clear() { myList->clear(); }
+		void clear() { 
+			myList->clear(); 
+		}
 
 		int size() {
 			int s = myList->size();
@@ -1986,7 +2007,9 @@ template<class T> class CircularLinkedList {
 			return false;
 		}
 
-		void clear() { myList = NULL; }
+		void clear() { 
+			myList = NULL; 
+		}
 
 		int size() {
 			Node<T> *myLast = myList;
@@ -2007,29 +2030,30 @@ template<class T> class CircularLinkedList {
 		}
 };
 
-template<class K, class V> class MapEntry {
+template<class K, class V> class Entry {
 	private:
-		K *key;
-		V *value;
+		K key;
+		V value;
 		bool cleared;
 
 	public:
-		~MapEntry() {
+		~Entry() {
 			delete key;
 			delete value;
 			delete cleared;
 		}
 
-		MapEntry(K key, V value) {
-			this->key = &key;
-			this->value = &value;
+		Entry(K key, V value) {
+			this->key = key;
+			this->value = value;
+			this->cleared = false;
 		}
 
-		K* getKey() {
+		K getKey() {
 			return key;
 		}
 
-		V* getValue() {
+		V getValue() {
 			return value;
 		}
 
@@ -2037,11 +2061,11 @@ template<class K, class V> class MapEntry {
 			return cleared;
 		}
 
-		void setKey(K *key) {
+		void setKey(K key) {
 			this->key = key;
 		}
 
-		void setValue(V *value) {
+		void setValue(V value) {
 			this->value = value;
 		}
 
@@ -2052,8 +2076,102 @@ template<class K, class V> class MapEntry {
 
 template<class K, class V> class Map {
 	private:
-		std::vector<MapEntry<K, V>*> *hashTable;
-		std::vector<K*> *keys;
+		std::vector<Entry<K, V>*> myMap;
+
+		int indexOf(K key) {
+			for (int i = 0; i < myMap->size(); i++) {
+				if (myMap->at(i)->getKey() == key) return i;
+			}
+			return -1;
+		}
+
+	public:
+		~Map() {
+			delete[] myMap;
+		}
+
+		Map() {
+			myMap = new std::vector<Entry<K, V>*>();
+		}
+
+		void add(K key, V value) {
+			if (!containsKey(key)) {
+				Entry<K, V> *temp = new Entry<K, V>(key, value);
+				myMap->push_back(temp);
+			}
+		}
+
+		void remove(K key) {
+			if (containsKey(key)) {
+				myMap->remove(this->indexOf(key));
+			}
+		}
+
+		V get(K key) {
+			if (containsKey(key)) {
+				return myMap->at(this->indexOf(key))->getValue();
+			}
+			return null;
+		}
+
+		void print() {
+			for (int i = 0; i < myMap->size(); i++) {
+				std::cout << "Key: " << myMap->at(i)->getKey() << " Value: " << myMap->at(i)->getValue() << std::endl;
+			}
+		}
+
+		std::vector<K>* getKeyList() {
+			std::vector<K> *keys = new std::vector<K>();
+
+			for (int i = 0; i < myMap->size(); i++) {
+				keys->push_back(myMap->at(i)->getKey());
+			}
+
+			return keys;
+		}
+
+		std::vector<V>* getValueList() {
+			std::vector<V> *values = new std::vector<V>();
+
+			for (int i = 0; i < myMap->size(); i++) {
+				values->push_back(myMap->at(i)->getValue());
+			}
+
+			return values;
+		}
+
+		bool containsKey(K key) {
+			for (int i = 0; i < myMap->size(); i++) {
+				if (myMap->at(i)->getKey() == key) return true;
+			}
+			return false;
+		}
+
+		bool containsValue(V value) {
+			for (int i = 0; i < myMap->size(); i++) {
+				if (myMap->at(i)->getValue() == value) return true;
+			}
+			return false;
+		}
+
+		void clear() { 
+			myMap->clear(); 
+		}
+
+		int size() {
+			return myMap->size();
+		}
+
+		bool isEmpty() {
+			return (this->size() == 0);
+		}
+};
+
+
+//NOT FINISHED
+template<class K, class V> class HashMap {
+	private:
+		std::vector<Entry<K, V>*> *hashTable;
 		int numberOfEntries, tableSize;
 		double loadFactor;
 
@@ -2065,12 +2183,12 @@ template<class K, class V> class Map {
 
 		void rehash()
 		{
-			std::vector<MapEntry<K, V>*> *prevHashTable = hashTable;
+			std::vector<Entry<K, V>*> *prevHashTable = hashTable;
 
 			numberOfEntries = 0;
 			tableSize *= 2;
 			loadFactor = 0;
-			hashTable = new std::vector<MapEntry<K, V>*>();
+			hashTable = new std::vector<Entry<K, V>*>();
 			for (int i = 0; i < tableSize; i++) {
 				hashTable->push_back(NULL);
 			}
@@ -2082,7 +2200,7 @@ template<class K, class V> class Map {
 		}
 
 	public:
-		~Map() {
+		~HashMap() {
 			delete[] hashtable;
 			delete[] keys;
 			delete numberOfEntries;
@@ -2090,11 +2208,11 @@ template<class K, class V> class Map {
 			delete loadFactor;
 		}
 
-		Map() {
+		HashMap() {
 			numberOfEntries = 0;
 			tableSize = 16;
 			loadFactor = 0;
-			hashTable = new std::vector<MapEntry<K, V>*>();
+			hashTable = new std::vector<Entry<K, V>*>();
 			for (int i = 0; i < tableSize; i++) {
 				hashTable->push_back(NULL);
 			}
@@ -2125,7 +2243,7 @@ template<class K, class V> class Map {
 					index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
 					if (hashTable->at(index) == NULL || hashTable->at(index)->isCleared())
 					{
-						hashTable->assign(index, (new MapEntry<K, V>(key, value)));
+						hashTable->assign(index, (new Entry<K, V>(key, value)));
 						numberOfEntries++;
 						checkForRehashing();
 						return;
@@ -2210,7 +2328,6 @@ template<class T> class SkipNode {
 		}
 };
 
-//NOT FINISHED
 template<class T> class SkipList {
 	private:
 		SkipNode<T> *myList;
@@ -2494,5 +2611,5 @@ template<class T> class Heap {
 
 template<class T> class Graph {};
 
-}
+};
 #endif
