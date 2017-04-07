@@ -1107,6 +1107,31 @@ template<class T> class BinaryTree {
 			return (1 + std::max(findMaxHeight(r->myLeft), findMaxHeight(r->myRight)));
 		}
 
+		void addNode(TreeNode<T> *node) {
+			if (root == NULL) {
+				root = node;
+			} else {
+				TreeNode<T> *prev = root;
+				TreeNode<T> *spot = root;
+
+				while (spot != NULL) {
+					if (node->myObj < spot->myObj) {
+						prev = spot;
+						spot = spot->myLeft;
+					} else {
+						prev = spot;
+						spot = spot->myRight;
+					}
+				}
+
+				if (node->myObj < prev->myObj) {
+					prev->myLeft = node;
+				} else {
+					prev->myRight = node;
+				}
+			}
+		}
+
 	public:
 		~BinaryTree() {
 			delete root;
@@ -1155,13 +1180,13 @@ template<class T> class BinaryTree {
 						TreeNode<T> *tempL = root->myLeft;
 						root = root->myRight;
 						root->myLeft = tempL;
-						this->add(temp);
+						this->addNode(temp);
 					} else if (root->myLeft != NULL) {
 						TreeNode<T> *temp = root->myLeft->myRight;
 						TreeNode<T> *tempR = root->myRight;
 						root = root->myLeft;
 						root->myRight = tempR;
-						this->add(temp);
+						this->addNode(temp);
 					} else {
 						root = NULL;
 					}
@@ -2076,7 +2101,7 @@ template<class K, class V> class Entry {
 
 template<class K, class V> class Map {
 	private:
-		std::vector<Entry<K, V>*> myMap;
+		std::vector<Entry<K, V>*> *myMap;
 
 		int indexOf(K key) {
 			for (int i = 0; i < myMap->size(); i++) {
@@ -2103,7 +2128,7 @@ template<class K, class V> class Map {
 
 		void remove(K key) {
 			if (containsKey(key)) {
-				myMap->remove(this->indexOf(key));
+				myMap->erase(myMap->begin() + this->indexOf(key));
 			}
 		}
 
@@ -2111,12 +2136,12 @@ template<class K, class V> class Map {
 			if (containsKey(key)) {
 				return myMap->at(this->indexOf(key))->getValue();
 			}
-			return null;
+			return NULL;
 		}
 
 		void print() {
 			for (int i = 0; i < myMap->size(); i++) {
-				std::cout << "Key: " << myMap->at(i)->getKey() << " Value: " << myMap->at(i)->getValue() << std::endl;
+				std::cout << "Key: " << myMap->at(i)->getKey() << "\tValue: " << myMap->at(i)->getValue() << std::endl;
 			}
 		}
 
