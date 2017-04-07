@@ -2269,9 +2269,7 @@ template<class K, class V> class HashMap {
 					index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
 					if (hashTable->at(index) == NULL || hashTable->at(index)->isCleared())
 					{
-						Entry<K, V> *temp = new Entry<K, V>(key, value);
-						hashTable->erase(hashTable->begin() + i);
-						hashTable->insert(hashTable->begin() + i, temp);
+						(*hashTable)[i] = new Entry<K, V>(key, value);
 						numberOfEntries++;
 						checkForRehashing();
 						return;
