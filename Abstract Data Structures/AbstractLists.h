@@ -24,7 +24,9 @@
  *	-HashMap (Dictionary)
  *	-Heap
  *	-Skip List
- *	-Graph
+ *	-Bitset
+ *	-Undirected Graph
+ *	-Directed Graph
  *
  **************************************************************************/
 
@@ -2203,7 +2205,11 @@ template<class T> class SkipList {};
 
 template<class T> class Heap {};
 
-template<class T> class Graph {};
+template<class T> class GraphNode {};
+
+template<class T> class UndirectedGraph {};
+
+template<class T> class DirectedGraph {};
 
 };
 #endif
