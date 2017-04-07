@@ -524,12 +524,57 @@ void maptest() {
 	std::cout << std::endl << table->size() << std::endl;
 }
 
+void hashmaptest() {
+	HashMap<char*, int> *table = new HashMap<char*, int>();
+
+	table->add("Jane", 35);
+	table->add("Joe", 14);
+	table->add("Jack", 71);
+	table->add("Jill", 64);
+	table->add("Abe", 33);
+	table->add("Beth", 21);
+	table->add("Chuck", 12);
+	table->add("Dot", 38);
+	table->add("Mike", 75);
+	table->add("Nick", 58);
+	table->add("Otis", 45);
+
+	table->print();
+
+	std::cout << std::endl << table->size() << std::endl;
+	std::cout << table->get("wow") << std::endl;
+	std::cout << table->get("Jane") << std::endl;
+	std::cout << table->get("Joe") << std::endl;
+	std::cout << table->get("Jack") << std::endl;
+	std::cout << table->get("Jill") << std::endl;
+
+	table->remove("Jane");
+	table->remove("Joe");
+
+	std::cout << std::endl << table->size() << std::endl;
+
+	std::cout << table->get("Jane") << std::endl;
+	std::cout << table->get("Joe") << std::endl;
+
+	table->add("Otis", 45);
+	table->add("Otis", 45);
+	table->add("Otis", 45);
+
+	std::cout << std::endl << table->size() << std::endl;
+	table->add("Jane", 35);
+	table->add("Joe", 14);
+
+	std::cout << std::endl << table->size() << std::endl;
+}
+
 int main() {
 	// Call method to test data structure methods
 	// bintreetest();
 	std::cout << "Hello world!" << std::endl;
-	//heaptest();
+	
 	maptest();
+	std::cout << "Done with map test" << std::endl << std::endl;
+	hashmaptest();
 
 	getchar();
 	return 0;

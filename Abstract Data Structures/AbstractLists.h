@@ -21,7 +21,7 @@
  *	-Map
  *
  * In progress:
- *	-HashMap
+ *	-HashMap (Dictionary)
  *	-Heap
  *	-Skip List
  *	-Graph
@@ -2193,11 +2193,13 @@ template<class K, class V> class Map {
 };
 
 
+
 //NOT FINISHED
 template<class K, class V> class HashMap {
 	private:
 		std::vector<Entry<K, V>*> *hashTable;
-		int numberOfEntries, tableSize;
+		int numberOfEntries;
+		int tableSize;
 		double loadFactor;
 
 		void checkForRehashing()
@@ -2227,7 +2229,6 @@ template<class K, class V> class HashMap {
 	public:
 		~HashMap() {
 			delete[] hashtable;
-			delete[] keys;
 			delete numberOfEntries;
 			delete tableSize;
 			delete loadFactor;
@@ -2268,16 +2269,17 @@ template<class K, class V> class HashMap {
 					index = (homePosition + i * ((((homePosition / tableSize) % (tableSize / 2)) * 2) + 1)) % tableSize;
 					if (hashTable->at(index) == NULL || hashTable->at(index)->isCleared())
 					{
-						hashTable->assign(index, (new Entry<K, V>(key, value)));
+						Entry<K, V> *temp = new Entry<K, V>(key, value);
+						hashTable->erase(hashTable->begin() + i);
+						hashTable->insert(hashTable->begin() + i, temp);
 						numberOfEntries++;
 						checkForRehashing();
 						return;
 					}
 				}
 				std::cout << ("Unable to put entry. Memory Full.") << std::endl;
-			}
-			else {
-				hashTable->at(positionInfo)->setValue(&value);
+			} else {
+				hashTable->at(positionInfo)->setValue(value);
 			}
 		}
 
@@ -2289,7 +2291,7 @@ template<class K, class V> class HashMap {
 			}
 		}
 
-		V* get(K key) {
+		V get(K key) {
 			int positionInfo = searchForEntry(key);
 			if (positionInfo != -1) return hashTable->at(positionInfo)->getValue();
 
@@ -2298,7 +2300,9 @@ template<class K, class V> class HashMap {
 
 		void print() {
 			for (int i = 0; i < hashTable->size(); i++) {
-				if (hashTable->at(i) != NULL) std::cout << hashTable->at(i)->getValue() << std::endl;
+				if (hashTable->at(i) != NULL) {
+					std::cout << "Key: " << hashTable->at(i)->getKey() << "\tValue: " << hashTable->at(i)->getValue() << std::endl;
+				}
 			}
 		}
 
@@ -2306,11 +2310,11 @@ template<class K, class V> class HashMap {
 			std::vector<V> *items = new std::vector<V>();
 
 			for (int i = 0; i < hashTable->size(); i++) {
-				if (hashTable->at(i) != NULL) items->push_back(hashTable->at(i));
+				if (hashTable->at(i) != NULL) items->push_back(hashTable->at(i)->getValue());
 			}
 		}
 
-		bool contains(int key) {
+		bool contains(K key) {
 			int positionInfo = searchForEntry(key);
 			return (positionInfo != -1);
 		}
