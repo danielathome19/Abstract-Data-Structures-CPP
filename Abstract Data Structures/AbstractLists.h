@@ -10,12 +10,12 @@
  *	-Stack
  *	-Queue (Linked List)
  *	-Queue
- *	-Set
- *	-Multiset (Bag)
+ *	-Set (Linked List)
+ *	-Multiset (Linked List) (Sorted List)
  *	-Binary (Search) Tree
  *	-Priority Queue
  *	-ArrayList
- *	-Double Ended Queue (Deque)
+ *  -Deque (Double Ended Queue)
  *	-Circular Queue
  *	-Circular Linked List
  *	-Map
@@ -277,18 +277,6 @@ template<class T> class DoublyLinkedList {
 			myList = temp;
 		}
 
-		void print() {
-			Node<T> *temp = myList;
-			std::cout << myList->myObj << std::endl;
-			temp = temp->myNext;
-
-			while (temp != myList) {
-				std::cout << temp->myObj << std::endl;
-				temp = temp->myNext;
-			}
-
-		}
-
 		T get(int index) {
 			int cnt = 0;
 			Node<T> *temp = myList;
@@ -306,6 +294,18 @@ template<class T> class DoublyLinkedList {
 				cnt++;
 			}
 			if (cnt == index) return temp->myObj;
+		}
+
+		void print() {
+			Node<T> *temp = myList;
+			std::cout << myList->myObj << std::endl;
+			temp = temp->myNext;
+
+			while (temp != myList) {
+				std::cout << temp->myObj << std::endl;
+				temp = temp->myNext;
+			}
+
 		}
 
 		std::vector<T>* getList() {
@@ -341,7 +341,6 @@ template<class T> class DoublyLinkedList {
 
 			while (temp != myList) {
 				cnt++;
-				std::cout << cnt << " ";
 				temp = temp->myNext;
 			}
 
@@ -414,9 +413,12 @@ template<class T> class LinkedListStack {
 		std::vector<T>* getList() {
 			std::vector<T> *items = new std::vector<T>();
 
-			for (int i = 0; i < this->size(); i++) {
-				items->push_back(this->pop());
+			myLast = myList;
+			while (myLast != null) {
+				items->push_back(myLast->myObj);
+				myLast = myLast.myNext;
 			}
+			
 			return items;
 		}
 
@@ -488,19 +490,13 @@ template<class T> class Stack {
 		}
 
 		std::vector<T>* getList() {
-			std::vector<T> *items = new std::vector<T>();
-
-			for (int i = 0; i < this->size(); i++) {
-				items->push_back(this->pop());
-			}
-			return items;
+			return myList;
 		}
 
 		bool contains(T t) {
-			std::vector<T> *items = this->getList();
-
-			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) return true;
+			
+			for (int i = 0; i < myList->size(); i++) {
+				if (myList->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -668,10 +664,8 @@ template<class T> class Queue {
 		}
 
 		bool contains(T t) {
-			std::vector<T> *items = this->getList();
-
-			for (int i = 0; i < items->size(); i++) {
-				if (items->at(i) == t) return true;
+			for (int i = 0; i < myList->size(); i++) {
+				if (myList->at(i) == t) return true;
 			}
 			return false;
 		}
@@ -689,7 +683,7 @@ template<class T> class Queue {
 		}
 };
 
-template<class T> class Set {
+template<class T> class LinkedListSet {
 	private:
 		Node<T> *myList;
 		Node<T> *myLast;
@@ -714,31 +708,18 @@ template<class T> class Set {
 			myLast->myNext = temp;
 		}
 
-		void checkDuplicates(T t) {
-			T item = t;
-			bool dupeFound = false;
-
-			myLast = myList;
-			while (myLast != NULL) {
-				if (item == myLast->myObj) dupeFound = true;
-				myLast = myLast->myNext;
-			}
-
-			if (!dupeFound) this->addSorted(t);
-
-		}
 	public:
-		~Set() {
+		~LinkedListSet() {
 			delete myList;
 			delete myLast;
 		}
 
-		Set() {
+		LinkedListSet() {
 			myList = NULL;
 			myLast = NULL;
 		}
 
-		Set(T t) {
+		LinkedListSet(T t) {
 			myList = new Node<T>(t);
 			myLast = myList;
 		}
@@ -749,7 +730,7 @@ template<class T> class Set {
 				myList = temp;
 				myLast = temp;
 			} else {
-				this->checkDuplicates(t);
+				if (!this->contains(t)) this->addSorted(t);
 			}
 		}
 
@@ -759,7 +740,7 @@ template<class T> class Set {
 				Node<T> *temp = myLast->myNext;
 				myList = temp;
 				myLast = myList;
-			} else if (index == (this->size() - 1)) {
+			} else if (index >= (this->size() - 1)) {
 				myLast = myList;
 				while (myLast->myNext->myNext != NULL) {
 					myLast = myLast->myNext;
@@ -898,7 +879,7 @@ template<class T> class Multiset {
 				Node<T> *temp = myLast->myNext;
 				myList = temp;
 				myLast = myList;
-			} else if (index == (this->size() - 1)) {
+			} else if (index >= (this->size() - 1)) {
 				myLast = myList;
 				while (myLast->myNext->myNext != NULL) {
 					myLast = myLast->myNext;
@@ -1728,22 +1709,22 @@ template<class T> class Deque {
 		}
 
 		void pushFront(T t) {
-			myList->push_back(t);
-		}
-
-		void pushBack(T t) {
 			myList->insert(myList->begin(), t);
 		}
 
+		void pushBack(T t) {
+			myList->push_back(t);
+		}
+
 		T popFront() {
-			T obj = myList->back();
-			myList->pop_back();
+			T obj = myList->at(0);
+			myList->erase(myList->begin());
 			return obj;
 		}
 
 		T popBack() {
-			T obj = myList->at(0);
-			myList->erase(myList->begin());
+			T obj = myList->back();
+			myList->pop_back();
 			return obj;
 		}
 
