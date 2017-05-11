@@ -9,7 +9,7 @@ All classes are kept within the __AbstractLists.h__ file in the namespace __adsc
 The __Source.cpp__ file contains working tests for most/all methods for each data structure.
 
 # Bugs/Features
-Bugs are tracked using the Github Issue Tracker.
+Bugs are tracked using the GitHub Issue Tracker.
 
 Please use the issue tracker for the following purpose:
   * To raise a bug request; do include specific details and label it appropriately.
